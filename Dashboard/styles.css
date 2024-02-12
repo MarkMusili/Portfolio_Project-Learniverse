@@ -1,0 +1,348 @@
+* {
+    box-sizing: border-box;
+}
+ 
+:root {
+    --dashboard-container: #f3f6fd;
+    --main-color: #1f1c2e;
+    --secondary-color: #4A4A4A;
+    --link-color: #1f1c2e;
+    --link-color-hover: #c3cff4;
+    --link-color-active: #fff;
+    --link-color-active-bg: #1f1c2e;
+    --projects-section: #fff;
+    --message-box-hover: #fafcff;
+    --message-box-border: #e9ebf0;
+    --more-list-bg: #fff;
+    --more-list-bg-hover:  #f6fbff;
+    --more-list-shadow: rgba(209, 209, 209, 0.4);
+    --button-bg: #1f1c24;
+    --search-area-bg: #fff;
+    --star: #1ff1c2e;
+    --message-btn: #fff;
+}
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    background-color: var(--dashboard-container)
+}
+
+.d-container {
+    width: 100%;
+    height: 100%;
+    background-color: var(--d-container);
+    display: flex;
+    flex-direction: column;
+}
+
+.d-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+.d-header-left, .d-header-right {
+    display: flex;
+    align-items: center;
+}
+
+.d-header-left {
+    flex-grow: 1;
+}
+
+.d-icon {
+    background-image: url('/Dashboard/Images/Dashboard-icon3.png');
+    background-size: contain;
+    width: 35px;
+    height: 35px;
+    min-width: 30px;
+    min-height: 30px;
+    background-repeat: no-repeat;
+}
+
+.d-name {
+    padding: 0 20px;
+}
+
+span {
+    color: var(--main-color);
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+}
+.search-bar {
+    background-color: var(--search-area-bg);
+    height: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    box-shadow: 0 2px 6px 0 rgba(136,148,171,.2),0 24px 20px -24px rgba(71,82,107,.1);
+}
+
+.search-icon {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+}
+
+.search-input {
+    flex: 1;
+    border-radius: 20px;
+    height: 100%;
+    border: none;
+    font-size: 16px;
+    padding: 10px 20px;
+    width: 100%;
+    outline: none;
+    background-color: var(--search-area-bg);
+    color: var(--main-color);
+}
+
+
+.d-header-right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mode-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mode-btn img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+.notification-btn {
+    background: transparent;
+    border: none;
+    padding-right: 10px;
+    margin: 0;
+}
+
+.notification-btn img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.profile-btn {
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    border-left: 2px solid #ddd;
+}
+
+.profile-btn img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    object-fit: cover;
+}
+
+.profile-btn span {
+    color: var(--main-color);
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+}
+
+.d-side-bar{
+    display: flex;
+    flex-direction: column;
+    padding: 60px 20px;
+    width: fit-content;
+}
+
+/* add hover effect here */
+.d-nav-home, .d-nav-query, .d-nav-planner, .d-nav-settings{
+    padding:30px 0 30px 0;
+}
+
+.d-nav-home img, .d-nav-query img, .d-nav-planner img, .d-nav-settings img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.d-content {
+    display: flex;
+}
+
+.d-project-section {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--projects-section);
+    border-radius: 30px;
+    padding: 32px 32px 0 32px;
+    height: 100%;
+    flex: 2;
+    min-height: 500px;
+}
+
+.d-project-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--main-color);
+}
+
+.d-project-section-overview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+p {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 700;
+    opacity: .9;
+    margin: 0;
+    color: var(--main-color);
+  }
+
+.project-status {
+    display: flex;
+}
+
+.project-status-item {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.count {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 700;
+    color: var(--main-color);
+}
+
+.status {
+    padding-right: 24px;
+    color: var(--secondary-color);
+}
+
+.view-options {
+    display: flex;
+}
+
+.list-view, .grid-view{
+    background: none;
+    border: none;
+}
+
+.list-view img, .grid-view img{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.d-project-section-boxes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.column {
+    height: 100%;
+    width: 100%;
+    background-color: var(--projects-section);
+    padding: 10px;
+    border-radius: 10%;
+}
+
+.project-box-wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    margin-bottom: 10px;
+}
+
+.project-box-body p {
+    font-size: 20px;
+}
+
+.Progress-bar {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #fff;
+}
+
+.Progress-bar-title {
+    flex: 1;
+    font-size: 16px;
+}
+
+.box-progress {
+    height: 4px;
+    border-radius: 10px;
+}
+
+.percentage {
+    font-size: 16px;
+    text-align: right;
+    height: auto;
+}
+
+.project-box-header {
+    display: flex;
+    align-items: center;
+}
+
+.project-box-header p{
+    flex-grow: 1;
+}
+
+.project-box-header img {
+    height: 20px;
+    width: 20px;
+}
+
+.Progress-bar-footer {
+    display: flex;
+    font-size: 15px;
+    justify-content: space-between;
+    padding-top: 5px;
+}
+
+.timer {
+    background-color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    padding: 6px 16px;
+    font-weight: 700;
+}
+
+.column-title {
+    margin: 0 0 10px 10px;
+    width: 80px;
+    padding: 6px;
+    border-radius: 10px;
+    color: var(--link-color-active);
+    text-align: center;
+}
