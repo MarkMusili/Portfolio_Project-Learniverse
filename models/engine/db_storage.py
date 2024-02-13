@@ -2,8 +2,11 @@
 """New storage"""
 import os
 from models.basemodel import Base
+from models.reviews import Review
+from models.dashboard import Dashboard
+from models.user import User
+from models.roadmap import Roadmap
 from sqlalchemy import create_engine
-
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 
@@ -17,14 +20,14 @@ class DBStorage:
         self.__engine = create_engine(
                                     'mysql+mysqldb://{}:{}@{}:3306/{}'.
                                     format(
-                                            os.getenv('HBNB_MYSQL_USER'),
-                                            os.getenv('HBNB_MYSQL_PWD'),
-                                            os.getenv('HBNB_MYSQL_HOST'),
-                                            os.getenv('HBNB_MYSQL_DB'),
+                                            os.getenv('RDMP_MYSQL_USER'),
+                                            os.getenv('RDMP_MYSQL_PWD'),
+                                            os.getenv('RDMP_MYSQL_HOST'),
+                                            os.getenv('RDMP_MYSQL_DB'),
                                             # pool_pre_ping=True
                                             )
                                     )
-        if os.getenv('HBNB_ENV') == 'test':
+        if os.getenv('RDMP_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
 
             self.__session = scoped_session(sessionmaker(bind=self.__engine,
@@ -39,14 +42,14 @@ class DBStorage:
                 cls = eval(cls)
             query = self.__session.query(cls)
             for obj in query:
-                key = "{}.{}".format(type(obj).__name__, obj.id)
+                key = f"{type(obj).__name__}.{obj.id}"
                 objects[key] = obj
         else:
-            classes = []
+            classes = [Review, User, Dashboard, Roadmap]
             for element in classes:
                 query = self.__session.query(element)
                 for obj in query:
-                    key = "{}.{}".format(type(obj).__name__, obj.id)
+                    key = f"{type(obj).__name__}.{obj.id}"
                     objects[key] = obj
 
         return objects
