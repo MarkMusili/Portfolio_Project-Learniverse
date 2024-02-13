@@ -1,0 +1,25 @@
+-- Prepare a Mysql Server
+cat setup_mysql_dev.sql | mysql -hlocalhost -uroot -p
+echo "SHOW DATABASES;" | mysql -urdmp_dev -p | grep rdmp_dev_db
+echo "SHOW GRANTS FOR 'rdmp_dev'@'localhost';" | mysql -uroot -p
+```
+Grants for rdmp_dev@localhost
+GRANT USAGE ON *.* TO 'rdmp_dev'@'localhost'
+GRANT SELECT ON `performance_schema`.* TO 'rdmp_dev'@'localhost'
+GRANT ALL PRIVILEGES ON `rdmp_dev_db`.* TO 'rdmp_dev'@'localhost'
+```
+
+-- Set up mysql test Server
+cat setup_mysql_test.sql | mysql -hlocalhost -uroot -p
+echo "SHOW DATABASES;" | mysql -urdmp_test -p | grep rdmp_test_db
+echo "SHOW GRANTS FOR 'rdmp_test'@'localhost';" | mysql -uroot -p
+```
+Grants for rdmp_test@localhost
+GRANT USAGE ON *.* TO 'rdmp_test'@'localhost'
+GRANT SELECT ON `performance_schema`.* TO 'rdmp_test'@'localhost'
+GRANT ALL PRIVILEGES ON `rdmp_test_db`.* TO 'rdmp_test'@'localhost'
+```
+
+
+-- Set up a user with any name
+echo 'create User name="John Doe" email="JDoe@outlook.com" password="my_password"' | RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py 
