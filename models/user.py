@@ -18,5 +18,5 @@ class User(BaseModel, Base):
     email = Column(String(128), nullable=False)
     password = Column(String(128), nullable=False)
     name = Column(String(128), nullable=False)
-    photo = Column(LargeBinary, default=binary_data)
+    # photo = Column(LargeBinary, default=binary_data)
     reviews = relationship('Review', cascade='all, delete-orphan', backref='user')
