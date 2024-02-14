@@ -12,12 +12,20 @@ var rightText = document.getElementById("sign-up");
 var accountForm = document.getElementById("sign-in-info")
 var signinForm = document.getElementById("sign-up-info");
 
-const Email = document.getElementById("email").value;
-const Password = document.getElementById("password").value;
+const signUpForm = document.getElementById("sign-up-form");
+const signInForm = document.getElementById("sign-in-form");
 
-console.log(document.getElementById("name").value);
-console.log(Email);
-console.log(Password);
+signUpForm.addEventListener("submit", function(event){
+    event.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const name = document.getElementById("name").value;
+    const password = document.getElementById("password").value;
+
+    console.log(email);
+    console.log(name);
+    console.log(password);
+});
 
 
 // Open the Sign Up page
