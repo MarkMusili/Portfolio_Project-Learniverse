@@ -53,6 +53,28 @@ class DBStorage:
                     objects[key] = obj
 
         return objects
+    
+    def show(self, cls, id):
+        """Shows a specific object"""
+        if cls and id:
+            if isinstance(cls, str) and isinstance(id, str):
+                cls = eval(cls)
+                id = eval(id)
+            query = self.__session.query(cls).filter(cls.id == id).first()
+            return query
+
+    def count(self, cls):
+        """Counts the number of a certain class in the storage"""
+        objects = {}
+        if cls:
+            if isinstance(cls, str):
+                cls = eval(cls)
+            query = self.__session.query(cls)
+            for obj in query:
+                key = f"{type(obj).__name__}.{obj.id}"
+                objects[key] = obj
+        return len(objects)
+
 
     def new(self, obj):
         """Creates a new object"""

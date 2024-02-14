@@ -158,7 +158,11 @@ class RDMPCommand(cmd.Cmd):
 
         key = c_name + "." + c_id
         try:
-            print(storage._FileStorage__objects[key])
+            # print(storage._FileStorage__objects[key])
+            object = storage.show(c_name, c_id)
+            if object is None:
+                raise KeyError
+            print(object)
         except KeyError:
             print("** no instance found **")
 
@@ -226,11 +230,18 @@ class RDMPCommand(cmd.Cmd):
 
     def do_count(self, args):
         """Count current number of class instances"""
-        count = 0
-        for k, v in storage._FileStorage__objects.items():
-            if args == k.split('.')[0]:
-                count += 1
-        print(count)
+        # count = 0
+        # for k, v in storage._FileStorage__objects.items():
+        #     if args == k.split('.')[0]:
+        #         count += 1
+        try:
+            if not args:
+                raise SyntaxError
+            print(storage.count(args))
+        except SyntaxError:
+            print("** class name missing **")
+        except NameError:
+            print("** class doesn't exist **")
 
     def help_count(self):
         """ """
