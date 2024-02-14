@@ -22,4 +22,22 @@ GRANT ALL PRIVILEGES ON `rdmp_test_db`.* TO 'rdmp_test'@'localhost'
 
 
 -- Set up a user with any name
-echo 'create User name="John Doe" email="JDoe@outlook.com" password="my_password"' | RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py 
+echo 'create User name="John_Doe" email="JDoe@outlook.com" password="my_password"' | RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py 
+echo 'create User name="Alice_Smith" email="asmith@example.com" password="secure_password"' | RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py
+echo 'create User name="Bob_Johnson" email="bjohnson@example.com" password="strong_pass"' | RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py
+echo 'create User name="Emma_Brown" email="ebrown@example.com" password="p@ssw0rd"' | RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py
+echo 'create User name="Michael_Johnson" email="mjohnson@example.com" password="Mj@123"' | RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py
+
+echo 'SELECT * FROM users\G' | mysql -urdmp_dev -p rdmp_dev_db
+
+
+
+---Set up a dashboard
+
+
+
+---------------DO NOT TOUCH---
+echo 'DROP TABLE reviews\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE dashboard\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE users\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE roadmap\G' | mysql -urdmp_dev -p rdmp_dev_db
