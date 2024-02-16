@@ -10,18 +10,21 @@
 </head>
 <body>
     <div class="container">
-        <div class="chat">
-            <!-- <div class="chat-title">
-                <h1>Chat</h1>
-                <div class="box1">Guide to prompt</div>
-                <div class="box2">More information</div>
-            </div> -->
-            <ul class="Chat-History"></ul>
-        </div>
         <form class="user_input">
-            <input type="text" id="input" placeholder="What would you like to learn...">
-            <button type="submit">Submit</button>
+            <!-- <input type="text" id="input" placeholder="What would you like to learn..."> -->
+            <input class="input" type="text" placeholder="What would you like to learn?...">
+            <button type="submit"></button>
         </form>
+        <!-- lodaing animation -->
+        <div class="response" style="display: none;">
+            <div class="ai-response" text="">
+            </div>
+            <div class="satisfied">
+                <p>Are you satified with the response?</p>
+                <button class="continue"></button>
+                <button class="reload"></button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
