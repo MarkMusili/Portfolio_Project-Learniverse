@@ -39,6 +39,21 @@ body {
     overflow: none;
 }
 
+.Header p{
+    font-size: 25px;
+    color: var(--main-color);
+    background-color: var(--reponse-section);
+    text-align: center;
+    width: 600px;
+}
+
+.info-section {
+    display: flex;
+    max-width: 600px;
+    color: var(--main-color);
+    background-color: ;
+}
+
 
 
 .user_input {
