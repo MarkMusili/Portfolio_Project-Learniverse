@@ -81,7 +81,7 @@ body {
 }
 
 button {
-    background-image: url(/send.png);
+    background-image: url(Images/send.png);
     background-color: transparent;
     background-size: contain;
     background-position: center;
@@ -125,7 +125,7 @@ p {
 }
 
 .reload {
-    background-image: url(/reload.png);
+    background-image: url(Images/reload.png);
     background-repeat: none;
     background-size: cover;
     width: 20px;
@@ -134,7 +134,7 @@ p {
 }
 
 .continue {
-    background-image: url(/thumbsup.png);
+    background-image: url(Images/thumbsup.png);
     background-size: cover;
     width: 30px;
     height: 30px;
