@@ -17,7 +17,7 @@ client = openai.Client(
 def chat():
     data = request.get_json()
     completion = client.chat.completions.create(
-        model="gpt-3.5-turbo-0125",
+        model=os.environ['OPENAI_MODEL_ID'],
         messages=[
             {"role": "system", "content": "You are an"},
             {"role": "user", "content": data["prompt"]}
