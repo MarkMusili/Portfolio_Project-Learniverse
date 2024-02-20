@@ -6,6 +6,9 @@ from models.reviews import Review
 from models.dashboard import Dashboard
 from models.user import User
 from models.roadmap import Roadmap
+from models.topics import Topic
+from models.resources import Resources
+from models.objectives import Objectives
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
@@ -45,7 +48,7 @@ class DBStorage:
                 key = f"{type(obj).__name__}.{obj.id}"
                 objects[key] = obj
         else:
-            classes = [Review, User, Dashboard, Roadmap]
+            classes = [Review, User, Dashboard, Roadmap, Topic, Resources, Objectives]
             for element in classes:
                 query = self.__session.query(element)
                 for obj in query:
