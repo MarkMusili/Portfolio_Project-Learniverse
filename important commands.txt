@@ -20,6 +20,10 @@ GRANT SELECT ON `performance_schema`.* TO 'rdmp_test'@'localhost'
 GRANT ALL PRIVILEGES ON `rdmp_test_db`.* TO 'rdmp_test'@'localhost'
 ```
 
+-----Open up the console
+RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py
+
+
 
 -- Set up a user with any name
 echo 'create User name="John_Doe" email="JDoe@outlook.com" password="my_password"' | RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py 
@@ -54,3 +58,10 @@ echo 'DROP TABLE reviews\G' | mysql -urdmp_dev -p rdmp_dev_db
 echo 'DROP TABLE dashboard\G' | mysql -urdmp_dev -p rdmp_dev_db
 echo 'DROP TABLE users\G' | mysql -urdmp_dev -p rdmp_dev_db
 echo 'DROP TABLE roadmap\G' | mysql -urdmp_dev -p rdmp_dev_db
+
+
+
+
+
+e6cfa73a-6b5d-4aaa-af81-428a78c2aeee
+create Roadmap user_id='e6cfa73a-6b5d-4aaa-af81-428a78c2aeee' title='Motion_1:_Understanding_Basic_Concepts_of_Motion' introduction="Welcome_to_your_journey_into_motion!_This_roadmap_will_introduce_you_to_the_fundamental_concepts_of_motion,_a_key_topic_in_physics._Get_ready_to_explore_the_world_of_speed,_velocity,_and_acceleration._Ready,_set,_let's_go!"
