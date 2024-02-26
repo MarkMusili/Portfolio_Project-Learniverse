@@ -2,6 +2,13 @@ body {
     font-family: Arial, sans-serif;
     background-color: #b9b9b9;
   }
+
+  .title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    text-decoration: underline;
+}
   
   .container {
     max-width: 800px;
@@ -60,6 +67,11 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   }
 
+  #objectives {
+    list-style: disc;
+    text-align: left;
+  }
+
   a {
     color: #db3e3e;
     text-decoration: none;
@@ -68,4 +80,5 @@ body {
   a:hover {
     text-decoration: underline;
    }
+   
   

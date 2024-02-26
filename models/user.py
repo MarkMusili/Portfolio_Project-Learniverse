@@ -20,3 +20,4 @@ class User(BaseModel, Base):
     name = Column(String(128), nullable=False)
     # photo = Column(LargeBinary, default=binary_data)
     reviews = relationship('Review', cascade='all, delete-orphan', backref='user')
+    roadmap = relationship('Roadmap', cascade="all, delete-orphan", backref="user")

@@ -8,6 +8,9 @@ from models.user import User
 from models.dashboard import Dashboard
 from models.roadmap import Roadmap
 from models.reviews import Review
+from models.topics import Topic
+from models.resources import Resources
+from models.objectives import Objectives
 
 
 class RDMPCommand(cmd.Cmd):
@@ -18,7 +21,8 @@ class RDMPCommand(cmd.Cmd):
 
     classes = {
                'BaseModel': BaseModel, 'User': User, 'Roadmap': Roadmap,
-               'Dashboard': Dashboard, 'Review': Review
+               'Dashboard': Dashboard, 'Review': Review, 'Topic': Topic,
+               'Resources': Resources, 'Objectives': Objectives
                }
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
     types = {'planning': int, 'in_progress': int, 'completed': int}
