@@ -1,0 +1,38 @@
+{
+    "Roadmap": {
+        "Title": "Discover the Power of Electricity",
+        "Introduction": "Welcome to your journey into the world of electricity! This roadmap will guide you through the basics of electricity, from understanding the fundamental concepts to applying them in real-world situations. Electricity is a fascinating subject that powers our modern world. Are you ready to discover its secrets? Let's get started!",
+        "Topics": [
+            {
+                "TopicName": "Introduction to Electricity",
+                "LearningObjectives": [
+                    "Understand the basics of electricity",
+                    "Learn about electrical components"
+                ],
+                "Descriptions": "Electricity is the flow of electric charge. In this topic, you'll learn about the basic concepts of electricity and different electrical components.",
+                "Resources": [
+                    "https://www.youtube.com/watch?v=AHrH7YxqI5E",
+                    "https://www.khanacademy.org/science/physics/electricity-magnetism"
+                ],
+                "Milestones": "Complete this section in 1 week"
+            },
+            {
+                "TopicName": "Circuits and Ohm's Law",
+                "LearningObjectives": [
+                    "Understand how circuits work",
+                    "Learn about Ohm's Law"
+                ],
+                "Descriptions": "A circuit is a closed loop through which electric current can flow. In this topic, you'll learn about different types of circuits and Ohm's Law.",
+                "Resources": [
+                    "https://www.youtube.com/watch?v=2kT6N8CwJ5I",
+                    "https://www.electronics-tutorials.ws/dccircuits/dcp_1.html"
+                ],
+                "Milestones": "Complete this section in 2 weeks"
+            }
+        ],
+        "AdditionalInfo": {
+            "Tips": "Take notes and solve lots of problems to deepen your understanding of electricity.",
+            "ProjectIdeas": "Consider building a simple circuit or a small electronics project to apply your knowledge."
+        }
+    }
+}

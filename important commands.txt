@@ -57,11 +57,17 @@ echo 'SELECT * FROM reviews\G' | mysql -urdmp_dev -p rdmp_dev_db
 echo 'DROP TABLE reviews\G' | mysql -urdmp_dev -p rdmp_dev_db
 echo 'DROP TABLE dashboard\G' | mysql -urdmp_dev -p rdmp_dev_db
 echo 'DROP TABLE users\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE resources\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE objectives\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE topics\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE dashboard\G' | mysql -urdmp_dev -p rdmp_dev_db
 echo 'DROP TABLE roadmap\G' | mysql -urdmp_dev -p rdmp_dev_db
 
 
 
+e218862b-e922-49b5-a8d4-900a0401dda1
 
+98abb941-79bd-4df1-bcc7-1acd4b34406b
+f76c5c77-7dc4-4088-9a20-b55db2336740
 
-e6cfa73a-6b5d-4aaa-af81-428a78c2aeee
 create Roadmap user_id='e6cfa73a-6b5d-4aaa-af81-428a78c2aeee' title='Motion_1:_Understanding_Basic_Concepts_of_Motion' introduction="Welcome_to_your_journey_into_motion!_This_roadmap_will_introduce_you_to_the_fundamental_concepts_of_motion,_a_key_topic_in_physics._Get_ready_to_explore_the_world_of_speed,_velocity,_and_acceleration._Ready,_set,_let's_go!"
