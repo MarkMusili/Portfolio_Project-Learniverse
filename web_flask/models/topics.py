@@ -12,8 +12,4 @@ class Topic(BaseModel, Base):
     description = Column(Text, nullable=False)
     milestones = Column(Text, nullable=False)
     resources = relationship("Resources", backref="topics", cascade="all, delete-orphan")
-<<<<<<< HEAD
     objectives = relationship("Objectives", backref="topics", cascade="all, delete-orphan")
-=======
-    objectives = relationship("Objectives", backref="topics", cascade="all, delete-orphan")
->>>>>>> ed5af42f6c310a68448afb9ac57fa2e99ec8e882

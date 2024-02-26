@@ -58,7 +58,7 @@ body {
 }
 
 .d-icon {
-    background-image: url('/Dashboard/Images/Dashboard-icon3.png');
+    background-image: url('Images/Dashboard-icon3.png');
     background-size: contain;
     width: 35px;
     height: 35px;
@@ -108,7 +108,6 @@ span {
     background-color: var(--search-area-bg);
     color: var(--main-color);
 }
-
 
 .d-header-right {
     display: flex;
@@ -340,9 +339,18 @@ p {
 
 .column-title {
     margin: 0 0 10px 10px;
-    width: 80px;
+    width: fit-content;
     padding: 6px;
     border-radius: 10px;
     color: var(--link-color-active);
     text-align: center;
+}
+
+.d-project-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.project-box-wrapper:hover {
+    transform: translateY(-3px); /* Add slight elevation on hover */
 }

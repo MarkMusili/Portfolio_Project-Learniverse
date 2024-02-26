@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#/usr/bin/python3
 """New storage"""
 import os
 from models.basemodel import Base
@@ -65,6 +65,41 @@ class DBStorage:
                 # id = eval(id)
             query = self.__session.query(cls).filter(cls.id == id).first()
             return query
+
+    def fetch(self, cls_name, ref_id):
+        """ Fetches the children of a specific parent """
+        objects = {}
+        if cls_name and ref_id:
+            class_map = {
+                "Topic": Topic,
+                "Dashboard": Dashboard,
+                "Roadmap": Roadmap,
+                "Review": Review,
+                "Objectives": Objectives,
+                "Resources": Resources
+            }
+
+            cls = class_map.get(cls_name)
+            if cls is None:
+                return {"error": f"Class {cls_name} not found"}
+
+            search = ""
+            if cls_name in ["Topic", "Dashboard"]:
+                search = "roadmap_id"
+            elif cls_name in ["Roadmap", "Review"]:
+                search = "user_id"
+            elif cls_name in ["Objectives", "Resources"]:
+                search = "topic_id"
+
+            if search:
+                query = self.__session.query(cls).filter(getattr(cls, search) == ref_id)
+                for obj in query:
+                    key = f"{type(obj).__name__}.{obj.id}"
+                    objects[key] = obj
+            else:
+                return {f"** Class {cls_name} has no parent **"}
+
+        return objects
 
     def count(self, cls):
         """Counts the number of a certain class in the storage"""
