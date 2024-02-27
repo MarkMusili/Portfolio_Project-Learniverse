@@ -85,7 +85,7 @@
                                 <div class="project-box-wrapper" style="background-color: #fecbcb;" draggable="true" ondragstart="drag(event)">
                                     <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                     <div class="project-box-header">
-                                        <p style="font-size: 15px;">February 14 2024</p>
+                                        <p style="font-size: 15px;">{{ roadmap.created_at.strftime('%B %d, %Y') }}</p>
                                         <img src="../static/Images/options.png">
                                     </div>
                                     <div class="project-box-body">
@@ -114,7 +114,7 @@
                                 <div class="project-box-wrapper" style="background-color: #dccafa;" draggable="true" ondragstart="drag(event)">
                                     <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                     <div class="project-box-header">
-                                        <p style="font-size: 15px;">February 14 2024</p>
+                                        <p style="font-size: 15px;">{{ roadmap.created_at.strftime('%B %d, %Y') }}</p>
                                         <img src="../static/Images/options.png">
                                     </div>
                                     <div class="project-box-body">
@@ -143,7 +143,7 @@
                                 <div class="project-box-wrapper" style="background-color: #6bfc8a;" draggable="true" ondragstart="drag(event)">
                                     <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                     <div class="project-box-header">
-                                        <p style="font-size: 15px;">February 14 2024</p>
+                                        <p style="font-size: 15px;">{{ roadmap.created_at.strftime('%B %d, %Y') }}</p>
                                         <img src="../static/Images/options.png">
                                     </div>
                                     <div class="project-box-body">
