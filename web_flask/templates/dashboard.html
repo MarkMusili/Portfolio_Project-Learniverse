@@ -83,7 +83,7 @@
                             {% if roadmap.planning %}
                             <div id="planning_{{ roadmap.id }}" class="droppable" ondrop="drop(event, 'planning')" ondragover="allowDrop(event)">
                                 <div class="project-box-wrapper" style="background-color: #fecbcb;" draggable="true" ondragstart="drag(event)">
-                                    <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}">
+                                    <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                     <div class="project-box-header">
                                         <p style="font-size: 15px;">February 14 2024</p>
                                         <img src="../static/Images/options.png">
@@ -141,7 +141,7 @@
                             {% if roadmap.completed %}
                             <div id="completed_{{ roadmap.id }}" class="droppable" ondrop="drop(event, 'completed')" ondragover="allowDrop(event)">
                                 <div class="project-box-wrapper" style="background-color: #6bfc8a;" draggable="true" ondragstart="drag(event)">
-                                    <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}">
+                                    <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                     <div class="project-box-header">
                                         <p style="font-size: 15px;">February 14 2024</p>
                                         <img src="../static/Images/options.png">
