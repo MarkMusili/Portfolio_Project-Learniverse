@@ -268,7 +268,7 @@ p {
     width: 100%;
     background-color: var(--projects-section);
     padding: 10px;
-    border-radius: 10%;
+    border-radius: 30px;
 }
 
 .project-box-wrapper {
