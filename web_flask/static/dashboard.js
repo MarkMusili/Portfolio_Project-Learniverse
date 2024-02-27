@@ -46,7 +46,7 @@ function updateRoadmapCounts() {
 
     // Update the HTML elements displaying the counts
     document.getElementById('planning-count').innerText = planningCount;
-    document.getElementById('in-progress-count').innerText = inProgressCount;
+    document.getElementById('in_progress-count').innerText = inProgressCount;
     document.getElementById('completed-count').innerText = completedCount;
 }
 

@@ -81,7 +81,7 @@
                         <div class="column-title" style="background-color: #721616;">Planning</div>
                         {% for roadmap in data %}
                             {% if roadmap.planning %}
-                            <div id="planning_{{ roadmap.id }}" class="droppable" ondrop="drop(event, 'planning')" ondragover="allowDrop(event)">
+                            <div id="planning_{{ roadmap.id }}" class="droppable" status="planning" ondrop="drop(event, 'planning')" ondragover="allowDrop(event)">
                                 <div class="project-box-wrapper" style="background-color: #fecbcb;" draggable="true" ondragstart="drag(event)">
                                     <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                     <div class="project-box-header">
@@ -110,7 +110,7 @@
                         <div class="column-title" style="background-color: #685bfa;">In progress</div>
                         {% for roadmap in data %}
                             {% if  roadmap.in_progress %}
-                            <div id="inProgress_{{ roadmap.id }}" class="droppable" ondrop="drop(event, 'inProgress')" ondragover="allowDrop(event)">
+                            <div id="inProgress_{{ roadmap.id }}" class="droppable" status="in_progress" ondrop="drop(event, 'inProgress')" ondragover="allowDrop(event)">
                                 <div class="project-box-wrapper" style="background-color: #dccafa;" draggable="true" ondragstart="drag(event)">
                                     <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                     <div class="project-box-header">
@@ -139,7 +139,7 @@
                         <div class="column-title" style="background-color: #25bd46;">Completed</div>
                         {% for roadmap in data %}
                             {% if roadmap.completed %}
-                            <div id="completed_{{ roadmap.id }}" class="droppable" ondrop="drop(event, 'completed')" ondragover="allowDrop(event)">
+                            <div id="completed_{{ roadmap.id }}" class="droppable" status="completed" ondrop="drop(event, 'completed')" ondragover="allowDrop(event)">
                                 <div class="project-box-wrapper" style="background-color: #6bfc8a;" draggable="true" ondragstart="drag(event)">
                                     <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                     <div class="project-box-header">
