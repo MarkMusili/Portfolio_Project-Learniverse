@@ -7,8 +7,6 @@ $(document).ready(function() {
         var formattedDate = currentDate.toLocaleDateString('en-US', options);
         $('.time').text(formattedDate);
     }
-
-    // Call the function to display current date when the document is ready
     displayCurrentDate();
 });
 
