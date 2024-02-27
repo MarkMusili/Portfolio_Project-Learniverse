@@ -39,3 +39,16 @@ function drop(event) {
     }
 }
 
+function updateRoadmapCounts() {
+    const planningCount = document.querySelectorAll('.column[status="planning"] .droppable').length;
+    const inProgressCount = document.querySelectorAll('.column[status="in_progress"] .droppable').length;
+    const completedCount = document.querySelectorAll('.column[status="completed"] .droppable').length;
+
+    // Update the HTML elements displaying the counts
+    document.getElementById('planning-count').innerText = planningCount;
+    document.getElementById('in-progress-count').innerText = inProgressCount;
+    document.getElementById('completed-count').innerText = completedCount;
+}
+
+// Call the function to update counts initially and whenever the page content changes
+updateRoadmapCounts();
