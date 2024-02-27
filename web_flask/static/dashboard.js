@@ -6,6 +6,11 @@ $(document).ready(function() {
         var redirectUrl = 'http://52.59.213.161:8080/roadmap/' + roadmapId;
         window.location.replace(redirectUrl);
     });
+
+    $('.mode-btn').click(function() {
+        $('body').toggleClass('dark');
+        $('html').toggleClass('dark');        
+    });
 });
 
 // Function to handle drag events

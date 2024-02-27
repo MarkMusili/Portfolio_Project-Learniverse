@@ -27,7 +27,7 @@
                     <img src="../static/Images/Notificatioin.png">
                 </button>
                 <button class="profile-btn">
-                    <img src="../static/Images/profile.jpeg" alt="profile">
+                    <div class="pfp"></div>
                     <span class="profile-name">John Doe</span>
                 </button>
             </div>
@@ -45,7 +45,7 @@
                 </a>
                 <a class="d-nav-settings" href="">
                     <img src="../static/Images/Settings.png">
-                </a>
+                </a>            
             </div>
             <div class="d-project-section">
                 <div class="d-project-section-header">
@@ -55,7 +55,7 @@
                 <div class="d-project-section-overview">
                     <div class="project-status">
                         <div class="project-status-item">
-                            <span class="count">12</span>
+                            <span class="count">{% planning_count %}</span>
                             <span class="status">Planning</span>
                         </div>
                         <div class="project-status-item">
@@ -79,8 +79,10 @@
                 <div class="d-project-section-boxes">
                     <div class="column" style="background-color: #ce4d4d;">
                         <div class="column-title" style="background-color: #721616;">Planning</div>
+                        {% set planning_count = 0%}
                         {% for roadmap in data %}
                             {% if roadmap.planning %}
+                            {% set planning_count = planning_count + 1 %}
                             <div id="planning_{{ roadmap.id }}" class="droppable" ondrop="drop(event, 'planning')" ondragover="allowDrop(event)">
                                 <div class="project-box-wrapper" style="background-color: #fecbcb;" draggable="true" ondragstart="drag(event)">
                                     <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}">
@@ -164,14 +166,6 @@
                             {% endif %}
                         {% endfor %}
                     </div>
-            <!-- <div class="d-task_section">
-                <div class="task-box-header"></div>
-                <div class="task-box">
-                    <div class="task"></div>
-                    <div class="task"></div>
-                    <div class="task"></div>
-                    <div class="task"></div>
-                </div> -->
             </div>
         </div>
     </div>
