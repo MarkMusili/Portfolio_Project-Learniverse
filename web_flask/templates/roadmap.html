@@ -17,7 +17,7 @@
         <h2>Topics:</h2>
         <ul id="topics">
           {% for topic in topics %}
-        <li class="topic" id="1">
+        <li class="topic" id="{{ topic.id }}">
           <h3>{{ topic.name }}</h3>
           <p>{{ topic.description }}</p>
           <h5>Objectives:</h5>
@@ -32,7 +32,7 @@
           <p>Links:
             {% for r in resources %}
               {% if r.topic_id == topic.id %}
-                <a href="{{ r.link }}">Link</a>
+                <a href="{{ r.link }}" target="_blank">Link</a>
               {% endif %}
             {% endfor %}
           </p>
@@ -40,11 +40,13 @@
        {% endfor %}
       </ul>
     </div>
+    {% if roadmap.AdditionalInfo %}
     <div class="additional-info-box">
       <h2>Additional Information</h2>
-      <p><b>Tip</b>: Take thorough notes and create diagrams to visualize concepts</p>
-      <p><b>Project Ideas</b>: Consider doing a cell model project to reinforce your understanding of cell structure</p>
+      <p><b>Tip</b>: {{ roadmap.AdditionalInfo.Tips }}</p>
+      <p><b>Project Ideas</b>: {{ roadmap.AdditionalInfo.ProjectIdeas }}</p>
     </div>
+    {% endif %}
   </div>
 </body>
 </html>

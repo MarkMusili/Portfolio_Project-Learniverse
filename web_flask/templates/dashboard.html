@@ -50,7 +50,7 @@
             <div class="d-project-section">
                 <div class="d-project-section-header">
                     <p class="title">Projects</p>
-                    <p class="time">February 14, 2024</p>
+                    <p class="time"></p>
                 </div>
                 <div class="d-project-section-overview">
                     <div class="project-status">
@@ -59,11 +59,11 @@
                             <span class="status">Planning</span>
                         </div>
                         <div class="project-status-item">
-                            <span class="count">12</span>
+                            <span class="count" id="in_progress_count">12</span>
                             <span class="status">In Progress</span>
                         </div>
                         <div class="project-status-item">
-                            <span class="count">12</span>
+                            <span class="count" id="completed_count">12</span>
                             <span class="status">Completed</span>
                         </div>
                     </div>
@@ -85,9 +85,9 @@
                             {% set planning_count = planning_count + 1 %}
                             <div id="planning_{{ roadmap.id }}" class="droppable" ondrop="drop(event, 'planning')" ondragover="allowDrop(event)">
                                 <div class="project-box-wrapper" style="background-color: #fecbcb;" draggable="true" ondragstart="drag(event)">
-                                    <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}">
+                                    <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                     <div class="project-box-header">
-                                        <p style="font-size: 15px;">February 14 2024</p>
+                                        <p style="font-size: 15px;">{{ roadmap.created_at.strftime('%B %d, %Y') }}</p>
                                         <img src="../static/Images/options.png">
                                     </div>
                                     <div class="project-box-body">
@@ -112,11 +112,11 @@
                         <div class="column-title" style="background-color: #685bfa;">In progress</div>
                         {% for roadmap in data %}
                             {% if  roadmap.in_progress %}
-                            <div id="inProgress_{{ roadmap.id }}" class="droppable" ondrop="drop(event, 'inProgress')" ondragover="allowDrop(event)">
+                            <div id="inProgress_{{ roadmap.id }}" class="droppable" status="in_progress" ondrop="drop(event, 'inProgress')" ondragover="allowDrop(event)">
                                 <div class="project-box-wrapper" style="background-color: #dccafa;" draggable="true" ondragstart="drag(event)">
-                                    <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}">
+                                    <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                     <div class="project-box-header">
-                                        <p style="font-size: 15px;">February 14 2024</p>
+                                        <p style="font-size: 15px;">{{ roadmap.created_at.strftime('%B %d, %Y') }}</p>
                                         <img src="../static/Images/options.png">
                                     </div>
                                     <div class="project-box-body">
@@ -141,11 +141,11 @@
                         <div class="column-title" style="background-color: #25bd46;">Completed</div>
                         {% for roadmap in data %}
                             {% if roadmap.completed %}
-                            <div id="completed_{{ roadmap.id }}" class="droppable" ondrop="drop(event, 'completed')" ondragover="allowDrop(event)">
+                            <div id="completed_{{ roadmap.id }}" class="droppable" status="completed" ondrop="drop(event, 'completed')" ondragover="allowDrop(event)">
                                 <div class="project-box-wrapper" style="background-color: #6bfc8a;" draggable="true" ondragstart="drag(event)">
-                                    <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}">
+                                    <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                     <div class="project-box-header">
-                                        <p style="font-size: 15px;">February 14 2024</p>
+                                        <p style="font-size: 15px;">{{ roadmap.created_at.strftime('%B %d, %Y') }}</p>
                                         <img src="../static/Images/options.png">
                                     </div>
                                     <div class="project-box-body">
