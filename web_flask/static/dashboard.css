@@ -301,7 +301,7 @@ p {
 }
 
 .column {
-    height: 100%;
+    height: fit-content;
     width: 100%;
     background-color: var(--projects-section);
     padding: 10px;
