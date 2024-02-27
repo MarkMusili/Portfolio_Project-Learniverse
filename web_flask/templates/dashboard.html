@@ -112,7 +112,7 @@
                             {% if  roadmap.in_progress %}
                             <div id="inProgress_{{ roadmap.id }}" class="droppable" ondrop="drop(event, 'inProgress')" ondragover="allowDrop(event)">
                                 <div class="project-box-wrapper" style="background-color: #dccafa;" draggable="true" ondragstart="drag(event)">
-                                    <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}">
+                                    <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                     <div class="project-box-header">
                                         <p style="font-size: 15px;">February 14 2024</p>
                                         <img src="../static/Images/options.png">
