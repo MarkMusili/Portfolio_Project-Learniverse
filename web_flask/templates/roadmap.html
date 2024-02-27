@@ -32,7 +32,7 @@
           <p>Links:
             {% for r in resources %}
               {% if r.topic_id == topic.id %}
-                <a href="{{ r.link }}">Link</a>
+                <a href="{{ r.link }}" target="_blank">Link</a>
               {% endif %}
             {% endfor %}
           </p>

@@ -4,7 +4,7 @@ $(document).ready(function() {
     $('.project-box-wrapper').click(function () {
         var roadmapId = $(this).data('roadmap-id');
         var redirectUrl = 'http://52.59.213.161:8080/roadmap/' + roadmapId;
-        window.location.replace(redirectUrl);
+        window.open(redirectUrl, '_blank');
     });
 });
 
