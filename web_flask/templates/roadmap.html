@@ -17,7 +17,7 @@
         <h2>Topics:</h2>
         <ul id="topics">
           {% for topic in topics %}
-        <li class="topic" id="1">
+        <li class="topic" id="{{ topic.id }}">
           <h3>{{ topic.name }}</h3>
           <p>{{ topic.description }}</p>
           <h5>Objectives:</h5>
