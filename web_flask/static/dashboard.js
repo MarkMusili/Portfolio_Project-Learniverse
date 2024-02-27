@@ -1,3 +1,17 @@
+// jQuery event handlers
+$(document).ready(function() {
+    // Function to display current date
+    function displayCurrentDate() {
+        var currentDate = new Date();
+        var options = { month: 'long', day: 'numeric', year: 'numeric' };
+        var formattedDate = currentDate.toLocaleDateString('en-US', options);
+        $('.time').text(formattedDate);
+    }
+
+    // Call the function to display current date when the document is ready
+    displayCurrentDate();
+});
+
 // Function to handle drag events
 function drag(event) {
     event.dataTransfer.setData("text", event.target.id);
