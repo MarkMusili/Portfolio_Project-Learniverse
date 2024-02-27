@@ -9,6 +9,8 @@ $(document).ready(function() {
     }
     displayCurrentDate();
 
+    $('.planning_count').text('{{ planning_count }}');
+
     // Function to handle drag events
     function drag(event) {
         event.dataTransfer.setData("text", event.target.id);
