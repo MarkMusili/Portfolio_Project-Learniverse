@@ -41,7 +41,7 @@
     --more-list-bg-hover:  rgba(195, 207, 244, 0.1);
     --more-list-shadow: rgba(195, 207, 244, 0.1);
     --message-btn: rgba(195, 207, 244, 0.1);
-  }
+}
 
 
 .dark img {
@@ -111,6 +111,7 @@ span {
     line-height: 24px;
     font-weight: 700;
 }
+
 .search-bar {
     background-color: var(--search-area-bg);
     height: 40px;
@@ -123,6 +124,11 @@ span {
     overflow: hidden;
     box-shadow: 0 2px 6px 0 rgba(136,148,171,.2),0 24px 20px -24px rgba(71,82,107,.1);
 }
+
+.dark .search-bar {
+    box-shadow: none;
+}
+
 
 .search-icon {
     width: 40px;
@@ -161,6 +167,16 @@ span {
     height: 40px;
     object-fit: cover;
 }
+
+/* .mode-btn:active {
+    background-image: url('Images/slider-dark-mode-right.png');
+    background-position: center;
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    transition: ease-in-out 0.5s;
+} */
+
 
 .notification-btn {
     background: transparent;
@@ -230,7 +246,7 @@ span {
     flex-direction: column;
     background-color: var(--projects-section);
     border-radius: 30px;
-    padding: 32px 32px 0 32px;
+    padding: 32px 32px 20px 32px;
     height: 100%;
     flex: 2;
     min-height: 500px;
@@ -240,7 +256,6 @@ span {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: var(--main-color);
 }
 
 .d-project-section-overview {
@@ -255,7 +270,7 @@ p {
     opacity: .9;
     margin: 0;
     color: var(--main-color);
-  }
+}
 
 .project-status {
     display: flex;

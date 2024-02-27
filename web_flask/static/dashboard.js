@@ -9,7 +9,19 @@ $(document).ready(function() {
     }
     displayCurrentDate();
 
-    
+    // function to toggle dark mode
+    $('.mode-btn').click(function() {
+        $('body').toggleClass('dark');
+        $('html').toggleClass('dark');
+        var imgElement = this.querySelector('img');
+        if (imgElement.src.endsWith('Slider-dark-mode-right.png')) {
+            imgElement.src = '../static/Images/Slider-dark-mode-left.png';
+        } else {
+            imgElement.src = '../static/Images/Slider-dark-mode-right.png';
+        }
+    });
+
+
     // Function to handle drag events
     function drag(event) {
         event.dataTransfer.setData("text", event.target.id);
