@@ -1,12 +1,12 @@
 // jQuery event handlers
-$(document).ready(function() {
-    // Click event for project box wrapper
-    $('.project-box-wrapper').click(function () {
-        var roadmapId = $(this).data('roadmap-id');
-        var redirectUrl = 'http://52.59.213.161:8080/roadmap/' + roadmapId;
-        window.location.replace(redirectUrl,);
-    });
-});
+// $(document).ready(function() {
+//     // Click event for project box wrapper
+//     $('.project-box-wrapper').click(function () {
+//         var roadmapId = $(this).data('roadmap-id');
+//         var redirectUrl = 'http://52.59.213.161:8080/roadmap/' + roadmapId;
+//         window.location.replace(redirectUrl,);
+//     });
+// });
 
 // Function to handle drag events
 function drag(event) {
