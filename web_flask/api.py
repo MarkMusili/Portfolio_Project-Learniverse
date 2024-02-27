@@ -75,6 +75,7 @@ def create_roadmap():
             'user_id': "6c970b0d-caed-4ff1-8eee-0ecf04ac7482",
             'title': data['Title'],
             'introduction': data['Introduction'],
+            'AdditionalInfo': data['AdditionalInfo'],
             'planning': True,
             'in_progress': False,
             'completed': False
