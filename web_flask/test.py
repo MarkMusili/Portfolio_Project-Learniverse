@@ -15,7 +15,11 @@ with open('text.json', 'r') as t:
         roadmap_data = {
             'user_id': "0d54ee7c-7414-46f0-861c-b51486114282",
             'title': data['Title'],
-            'introduction': data['Introduction']
+            'introduction': data['Introduction'],
+            'AdditionalInfo': data['AdditionalInfo'],
+            'planning': True,
+            'in_progress': False,
+            'completed': False
         }
         roadmap = Roadmap(**roadmap_data)
         roadmap.save()

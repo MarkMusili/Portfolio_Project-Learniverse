@@ -40,11 +40,13 @@
        {% endfor %}
       </ul>
     </div>
+    {% if roadmap.AdditionalInfo %}
     <div class="additional-info-box">
       <h2>Additional Information</h2>
       <p><b>Tip</b>: {{ roadmap.AdditionalInfo.Tips }}</p>
       <p><b>Project Ideas</b>: {{ roadmap.AdditionalInfo.ProjectIdeas }}</p>
     </div>
+    {% endif %}
   </div>
 </body>
 </html>
