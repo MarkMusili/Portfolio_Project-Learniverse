@@ -82,32 +82,33 @@
                         <div class="column-title" style="background-color: #721616;">Planning</div>
                         {% for roadmap in data %}
                             {% if roadmap.planning %}
-                            {% set planning_count = planning_count + 1 %}
-                            <div id="planning_{{ roadmap.id }}" class="droppable" ondrop="drop(event, 'planning')" ondragover="allowDrop(event)">
-                                <div class="project-box-wrapper" style="background-color: #fecbcb;" draggable="true" ondragstart="drag(event)">
-                                    <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
-                                    <div class="project-box-header">
-                                        <p style="font-size: 15px;">{{ roadmap.created_at.strftime('%B %d, %Y') }}</p>
-                                        <img src="../static/Images/options.png">
+                                {% set planning_count = planning_count + 1 %}
+                                <div id="planning_{{ roadmap.id }}" class="droppable" ondrop="drop(event, 'planning')" ondragover="allowDrop(event)">
+                                    <div class="project-box-wrapper" style="background-color: #fecbcb;" draggable="true" ondragstart="drag(event)">
+                                        <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
+                                        <div class="project-box-header">
+                                            <p style="font-size: 15px;">{{ roadmap.created_at.strftime('%B %d, %Y') }}</p>
+                                            <img src="../static/Images/options.png">
+                                        </div>
+                                        <div class="project-box-body">
+                                            <p>{{ roadmap.title }}</p>
+                                        </div>
+                                        <div class="Progress-bar">
+                                            <p class="Progress-bar-title">Progress</p>
+                                            <span class="box-progress" style="width: 0%; background-color: #ff942e"></span>
+                                            <p class="percentage">0%</p>
+                                        </div>
+                                        <div class="Progress-bar-footer">
+                                            <img src="../static/Images/Add.png" style="width: 20px; height: 20px;">
+                                            <div class="timer">4 Days Left</div>
+                                        </div>
+                                        </a>
                                     </div>
-                                    <div class="project-box-body">
-                                        <p>{{ roadmap.title }}</p>
-                                    </div>
-                                    <div class="Progress-bar">
-                                        <p class="Progress-bar-title">Progress</p>
-                                        <span class="box-progress" style="width: 0%; background-color: #ff942e"></span>
-                                        <p class="percentage">0%</p>
-                                    </div>
-                                    <div class="Progress-bar-footer">
-                                        <img src="../static/Images/Add.png" style="width: 20px; height: 20px;">
-                                        <div class="timer">4 Days Left</div>
-                                    </div>
-                                    </a>
                                 </div>
-                            </div>
                             {% endif %}
                         {% endfor %}
-                        </div>
+                    </div>
+                </div>
                     <div class="column" style="background-color: #b3adf5;">
                         <div class="column-title" style="background-color: #685bfa;">In progress</div>
                         {% for roadmap in data %}
