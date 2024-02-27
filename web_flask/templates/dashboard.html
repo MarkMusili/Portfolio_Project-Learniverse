@@ -53,18 +53,33 @@
                     <p class="time"></p>
                 </div>
                 <div class="d-project-section-overview">
+                    <!-- Summation of Roadmap Counts -->
+                    {% set planning_count = 0 %}
+                    {% set in_progress_count = 0 %}
+                    {% set completed_count = 0 %}
+
+                    <!-- Loop through roadmaps -->
+                    {% for roadmap in data %}
+                        {% if roadmap.planning %}
+                            {% set planning_count = planning_count + 1 %}
+                        {% elif roadmap.in_progress %}
+                            {% set in_progress_count = in_progress_count + 1 %}
+                        {% elif roadmap.completed %}
+                            {% set completed_count = completed_count + 1 %}
+                        {% endif %}
+                    {% endfor %}
                     <div class="project-status">
                         <div class="project-status-item">
                             <span class="planning-count"></span>
-                            <span class="status">Planning</span>
+                            <span class="status">{{ planning_count }}</span>
                         </div>
                         <div class="project-status-item">
                             <span class="in_progress_count"></span>
-                            <span class="status">In Progress</span>
+                            <span class="status">{{ in_progress_count }}</span>
                         </div>
                         <div class="project-status-item">
                             <span class="completed_count"></span>
-                            <span class="status">Completed</span>
+                            <span class="status">{{ completed_count }}</span>
                         </div>
                     </div>
                     <div class="view-options">

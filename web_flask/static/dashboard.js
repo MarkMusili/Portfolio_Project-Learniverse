@@ -38,18 +38,18 @@ $(document).ready(function() {
         }
     };
     
-    function updateRoadmapCounts() {
-        const planningCount = document.querySelectorAll('.column[status="planning"] .droppable').length;
-        const inProgressCount = document.querySelectorAll('.column[status="in_progress"] .droppable').length;
-        const completedCount = document.querySelectorAll('.column[status="completed"] .droppable').length;
+    // function updateRoadmapCounts() {
+    //     const planningCount = document.querySelectorAll('.column[status="planning"] .droppable').length;
+    //     const inProgressCount = document.querySelectorAll('.column[status="in_progress"] .droppable').length;
+    //     const completedCount = document.querySelectorAll('.column[status="completed"] .droppable').length;
 
-        // Update the HTML elements displaying the counts
-        $('.planning-count').text(planningCount);
-        $('.in_progress_count').text(inProgressCount);
-        $('.completed_count').text(completedCount);
-    }
+    //     // Update the HTML elements displaying the counts
+    //     $('.planning-count').text(planningCount);
+    //     $('.in_progress_count').text(inProgressCount);
+    //     $('.completed_count').text(completedCount);
+    // }
 
-    // Call the function to update counts initially and whenever the page content changes
-    updateRoadmapCounts();
+    // // Call the function to update counts initially and whenever the page content changes
+    // updateRoadmapCounts();
 });
 
