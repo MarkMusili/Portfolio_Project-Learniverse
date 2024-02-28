@@ -25,12 +25,12 @@ $(document).ready(function() {
     // Function to handle drag events
     function drag(event) {
         event.dataTransfer.setData("text", event.target.id);
-    };
+    }
     
     // Function to allow dropping elements
     function allowDrop(event) {
         event.preventDefault();
-    };
+    }
     
     // Function to handle the drop event
     function drop(event) {
@@ -49,5 +49,9 @@ $(document).ready(function() {
         } else {
             console.error("Roadmap Element: null");
         }
-    };
+    }
+
+    $('.project-box-wrapper').on('dragstart', drag);
+    $('.droppable').on('dragover', allowDrop);
+    $('.droppable').on('drop', drop);
 });
