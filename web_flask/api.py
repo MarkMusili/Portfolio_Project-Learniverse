@@ -68,9 +68,9 @@ def create_roadmap():
     from models.objectives import Objectives
 
     response = json.loads(request.get_json())
-    roadmap = response.values()
+    roadmap_response = response.values()
 
-    for data in roadmap:
+    for data in roadmap_response:
         roadmap_data = {
             'user_id': "6c970b0d-caed-4ff1-8eee-0ecf04ac7482",
             'title': data['Title'],
@@ -82,6 +82,7 @@ def create_roadmap():
         }
         roadmap = Roadmap(**roadmap_data)
         roadmap.save()
+        r_id = roadmap.id
 
         for topic_data in data["Topics"]:
             topic = Topic(
@@ -104,7 +105,7 @@ def create_roadmap():
             roadmap.topic.append(topic)
             topic.save()
 
-    return f"{roadmap.id}"
+    return f"{r_id}"
 
 @app.route('/update_roadmap_status/<roadmap_id>', methods=['PUT'])
 def update_roadmap_status(roadmap_id):
