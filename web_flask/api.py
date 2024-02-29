@@ -34,7 +34,7 @@ def chat():
 @app.route('/dashboard')
 def dashboard():
     roadmap = storage.all("Roadmap").values()
-    data = sorted(roadmap, key=lambda k: k.created_at)
+    data = sorted(roadmap, key=lambda k: k.created_at, reverse=True)
     return render_template('dashboard.html', data=data)
 
 @app.route('/roadmap/<roadmap_id>')
@@ -56,7 +56,7 @@ def view_roadmap(roadmap_id):
     return render_template('roadmap.html',
             roadmap=roadmap,
             objectives=objectives,
-            topics=topics.values(),
+            topics=sorted(topics, lambda t: t.created_at),
             resources=resources
             )
 
