@@ -56,7 +56,7 @@ def view_roadmap(roadmap_id):
     return render_template('roadmap.html',
             roadmap=roadmap,
             objectives=objectives,
-            topics=sorted(topics, lambda t: t.created_at),
+            topics=sorted(topics, key=lambda t: t.created_at),
             resources=resources
             )
 
