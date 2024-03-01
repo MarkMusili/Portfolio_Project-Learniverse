@@ -30,8 +30,11 @@
           </ul>
           <p>Milestones: <b>{{ topic.milestones }}</b></p>
           <p>Links:
-            <a target="_blank">{{ resources[0].link }}</a>,
-            <a target="_blank">{{ resources[1].link }}</a>
+            {% for r in resources %}
+              {% if r.topic_id == topic.id %}
+                <a href="{{ r.link }}" target="_blank">Link</a>
+              {% endif %}
+            {% endfor %}
           </p>
         </li>
        {% endfor %}
