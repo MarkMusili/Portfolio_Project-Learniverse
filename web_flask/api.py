@@ -186,6 +186,16 @@ def update_roadmap_status(roadmap_id):
     except Exception as e:
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
 
+@app.route('/profile')
+def profile_page():
+    """ """
+    return render_template('profile.html')
+
+@app.route('/settings')
+def settings_page():
+    """ """
+    return render_template('settings.html')
+
 # Test endpoint
 @app.route('/test')
 def hello():
