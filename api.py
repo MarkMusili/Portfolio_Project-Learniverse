@@ -13,6 +13,10 @@ client = openai.Client(
     api_key = environ['OPENAI_API_KEY']
 )
 
+@app.route('/')
+def landing_page():
+    return "Welcome to the Learning Roadmap API"
+
 @app.route('/chat', methods=['POST'])
 def chat():
     data = request.get_json()
