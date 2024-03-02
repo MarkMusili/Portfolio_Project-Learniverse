@@ -44,6 +44,11 @@ client = openai.Client(api_key=environ['OPENAI_API_KEY'])
 def db_close(exception):
     storage.close()
 
+@app.route('/')
+def landing_page():
+    """ """
+    return "Welcome to the Learning Roadmap API"
+
 @app.route('/login')
 def login_page():
     """ """
