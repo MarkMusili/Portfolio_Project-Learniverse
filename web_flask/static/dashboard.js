@@ -14,10 +14,10 @@ $(document).ready(function() {
         $('body').toggleClass('dark');
         $('html').toggleClass('dark');
         var imgElement = this.querySelector('img');
-        if (imgElement.src.endsWith('Slider-dark-mode-right.png')) {
-            imgElement.src = '../static/Images/Slider-dark-mode-left.png';
+        if (imgElement.src.endsWith('slider-dark-mode-right.png')) {
+            imgElement.src = '../static/Images/slider-dark-mode-left.png';
         } else {
-            imgElement.src = '../static/Images/Slider-dark-mode-right.png';
+            imgElement.src = '../static/Images/slider-dark-mode-right.png';
         }
     });
 

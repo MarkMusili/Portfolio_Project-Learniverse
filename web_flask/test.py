@@ -17,7 +17,7 @@ with open('text.json', 'r') as t:
             'title': data['Title'],
             'introduction': data['Introduction'],
             'AdditionalInfo': data['AdditionalInfo'],
-            'planning': True,
+            'planning': False,
             'in_progress': False,
             'completed': False
         }
