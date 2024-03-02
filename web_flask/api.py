@@ -47,7 +47,7 @@ def db_close(exception):
 @app.route('/')
 def landing_page():
     """ """
-    return "Welcome to the Learning Roadmap API"
+    return render_template('landing_page.html')
 
 @app.route('/login')
 def login_page():
