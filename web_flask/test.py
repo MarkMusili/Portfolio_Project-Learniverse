@@ -18,19 +18,22 @@ with open('text.json', 'r') as t:
             'introduction': data['Introduction'],
             'AdditionalInfo': data['AdditionalInfo'],
             'planning': False,
-            'in_progress': False,
+            'in_progress': True,
             'completed': False
         }
         roadmap = Roadmap(**roadmap_data)
         roadmap.save()
 
+        position = 1
         for topic_data in data["Topics"]:
             topic = Topic(
+                position=position,
                 roadmap_id=roadmap.id,
                 name=topic_data['TopicName'],
                 description=topic_data['Descriptions'],
                 milestones=topic_data['Milestones']
             )
+            position += 1
 
             for objective_text in topic_data['LearningObjectives']:
                 objective = Objectives(name=objective_text, topic_id=topic.id)
