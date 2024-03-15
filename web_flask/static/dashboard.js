@@ -29,9 +29,9 @@ $(document).ready(function() {
         var count1 = planningTags.length;
         var count2 = inProgressTags.length;
         var count3 = completedTags.length;
-        document.getElementById("planning_count").textContent = count1;
-        document.getElementById("in_progress_count").textContent = count2;
-        document.getElementById("completed_count").textContent = count3;
+        document.getElementById("planningCount").textContent = count1;
+        document.getElementById("in_progressCount").textContent = count2;
+        document.getElementById("completedCount").textContent = count3;
     }
     displayCount();
 
