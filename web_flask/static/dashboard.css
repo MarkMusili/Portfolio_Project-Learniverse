@@ -315,8 +315,8 @@ p {
     justify-content: space-between;
 }
 
-.planningColumn
-.inProgressColumn
+.planningColumn,
+.inProgressColumn,
 .completedColumn {
     height: fit-content;
     width: 100%;
