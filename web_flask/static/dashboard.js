@@ -46,8 +46,7 @@ $(document).ready(function() {
         // Implement Drag and Drop feature for each map
         $(".planning, .in_progress, .completed").on("dragstart", function(e) {
             let selected = $(this);
-            let column;
-            
+                        
             // Prevent default behavior for dragover
             $(".planningColumn, .inProgressColumn, .completedColumn").on("dragover", function(e) {
                 e.preventDefault();
