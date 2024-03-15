@@ -21,6 +21,14 @@ $(document).ready(function() {
         }
     });
 
+    // Function to count the elements in one column
+    function displayPlanningCount() {
+        var planningTags = document.querySelectorAll('[id^="planning"]');
+        var count = planningTags.length;
+        document.getElementById("planning_count").textContent = count;
+    }
+    displayPlanningCount();
+
 
     // Function to handle drag events
     function drag(event) {
