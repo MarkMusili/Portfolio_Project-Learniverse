@@ -22,12 +22,18 @@ $(document).ready(function() {
     });
 
     // Function to count the elements in one column
-    function displayPlanningCount() {
-        var planningTags = document.querySelectorAll('[id^="planning"]');
-        var count = planningTags.length;
-        document.getElementById("planning_count").textContent = count;
+    function displayCount() {
+        var planningTags = document.querySelectorAll('[id^="planning_"]');
+        var inProgressTags = document.querySelectorAll('[id^="in_progress_"]');
+        var CompletedTags = document.querySelectorAll('[id^="completed_"]');
+        var count1 = planningTags.length;
+        var count2 = inProgressTags.length;
+        var count3 = CompletedTags.length;
+        document.getElementById("planning_count").textContent = count1;
+        document.getElementById("in_progress_count").textContent = count2;
+        document.getElementById("completed_count").textContent = count3;
     }
-    displayPlanningCount();
+    displayCount();
 
 
     // Function to handle drag events
