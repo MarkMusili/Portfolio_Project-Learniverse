@@ -46,6 +46,7 @@ $(document).ready(function() {
         // Implement Drag and Drop feature for each map
         $(".planning, .in_progress, .completed").on("dragstart", function(e) {
             let selected = $(this);
+            r_id = selected.attr('id').split('_')[1];
 
             // Prevent default behavior for dragover
             $(".planningColumn, .inProgressColumn, .completedColumn").on("dragover", function(e) {
@@ -54,14 +55,22 @@ $(document).ready(function() {
             
             // Append the selected element to the target column on drop
             $(".planningColumn").on("drop", function(e) {
+                selected.attr('id', 'planning_' + r_id);
+                selected.removeClass('planning in_progress completed').addClass('planning');
                 $(".planningColumn").append(selected);
                 selected = null;
             });
+
             $(".inProgressColumn").on("drop", function(e) {
+                selected.attr('id', 'inProgress_' + r_id);
+                selected.removeClass('planning in_progress completed').addClass('in_progress');
                 $(".inProgressColumn").append(selected);
                 selected = null;
             });
+
             $(".completedColumn").on("drop", function(e) {
+                selected.attr('id', 'completed_' + r_id);
+                selected.removeClass('planning in_progress completed').addClass('completed');
                 $(".completedColumn").append(selected);
                 selected = null;
             });
