@@ -81,7 +81,7 @@
                         <div class="column-title" style="background-color: #721616;">Planning</div>
                         {% for roadmap in data %}
                                 {% if roadmap.planning %}
-                                    <div id="planning_{{ roadmap.id }}" draggable="true">
+                                    <div id="planning_{{ roadmap.id }}" class="planning" draggable="true">
                                         <div class="project-box-wrapper" style="background-color: #fecbcb;">
                                             <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                             <div class="project-box-header">
@@ -110,7 +110,7 @@
                         <div class="column-title" style="background-color: #685bfa;">In progress</div>
                         {% for roadmap in data %}
                                 {% if  roadmap.in_progress %}
-                                    <div id="inProgress_{{ roadmap.id }}" draggable="true">
+                                    <div id="inProgress_{{ roadmap.id }}" class="in_progress" draggable="true">
                                         <div class="project-box-wrapper" style="background-color: #dccafa;">
                                             <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                             <div class="project-box-header">
@@ -139,7 +139,7 @@
                         <div class="column-title" style="background-color: #25bd46;">Completed</div>
                         {% for roadmap in data %}
                                 {% if roadmap.completed %}
-                                    <div id="completed_{{ roadmap.id }}" draggable="true">
+                                    <div id="completed_{{ roadmap.id }}" class="completed draggable="true">
                                         <div class="project-box-wrapper" style="background-color: #6bfc8a;">
                                             <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                             <div class="project-box-header">
@@ -168,4 +168,5 @@
         </div>
     </div>
 </body>
+<footer style="padding: 30px;"></footer>
 </html>

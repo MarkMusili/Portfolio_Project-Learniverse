@@ -23,12 +23,17 @@ $(document).ready(function() {
 
     // Function to count the elements in one column
     function displayCount() {
+        // Store each of the elements in variables
         var planningTags = document.querySelectorAll('[id^="planning_"]');
         var inProgressTags = document.querySelectorAll('[id^="inProgress_"]');
         var completedTags = document.querySelectorAll('[id^="completed_"]');
+
+        // Count each of the columns
         var count1 = planningTags.length;
         var count2 = inProgressTags.length;
         var count3 = completedTags.length;
+
+        // Display the final count of each column
         document.getElementById("planningCount").textContent = count1;
         document.getElementById("in_progressCount").textContent = count2;
         document.getElementById("completedCount").textContent = count3;
@@ -37,35 +42,32 @@ $(document).ready(function() {
 
 
     // Function to handle drag events
-    function drag(event) {
-        event.dataTransfer.setData("text", event.target.id);
+    function dragAndDrop() {
+        // Implement Drag and Drop feature for each map
+        $(".planning, .in_progress, .completed").on("dragstart", function(e) {
+            let selected = $(this);
+            let column;
+            
+            // Prevent default behavior for dragover
+            $(".planningColumn, .inProgressColumn, .completedColumn").on("dragover", function(e) {
+                e.preventDefault();
+            });
+            
+            // Append the selected element to the target column on drop
+            $(".planningColumn").on("drop", function(e) {
+                $(".planningColumn").append(selected);
+                selected = null;
+            });
+            $(".inProgressColumn").on("drop", function(e) {
+                $(".inProgressColumn").append(selected);
+                selected = null;
+            });
+            $(".completedColumn").on("drop", function(e) {
+                $(".completedColumn").append(selected);
+                selected = null;
+            });
+        });
     }
-    
-    // Function to allow dropping elements
-    function allowDrop(event) {
-        event.preventDefault();
-    }
-    
-    // Function to handle the drop event
-    function drop(event) {
-        event.preventDefault();
-        var roadmapId = event.dataTransfer.getData("text");
-        console.log("Roadmap ID:", roadmapId);
-        var roadmap = document.getElementById(roadmapId);
-        console.log("Roadmap Element:", roadmap);
-        var column = event.target.id;
-        console.log("Column ID:", column);
-        event.target.appendChild(roadmap); // Append to the target element, not $(this)
-        if (roadmap) {
-            var columnElement = document.getElementById(columnId);
-            columnElement.appendChild(roadmap);
-            updateRoadmapStatus(roadmapId, columnId);
-        } else {
-            console.error("Roadmap Element: null");
-        }
-    }
-
-    $('.project-box-wrapper').on('dragstart', drag);
-    $('.droppable').on('dragover', allowDrop);
-    $('.droppable').on('drop', drop);
+    dragAndDrop();
+    displayCount();
 });
