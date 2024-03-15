@@ -22,11 +22,13 @@ $(document).ready(function () {
                 "Content-Type": "application/json",
             },
         })
-            .then((response) => response.json())
-            .then((data) => {
-                //change later
-                $(".ai-response").text(data)
-                console.log(data)
+            .then((response) => {
+                if (response.ok) {
+                    // Redirect to another page
+                    window.location.href = "https://example.com/another-page";
+                } else {
+                    throw new Error("API request failed");
+                }
             })
             .catch((error) => {
                 console.error("Error:", error);

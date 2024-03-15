@@ -14,10 +14,6 @@ client = openai.Client(
     api_key = environ['OPENAI_API_KEY']
 )
 
-@app.teardown_appcontext
-def db_close(exception):
-    storage.close()
-
 @app.route('/chat', methods=['POST'])
 def chat():
     data = request.get_json()
@@ -31,6 +27,9 @@ def chat():
     response = completion.choices[0].message.content
     return jsonify(response)
 
+@app.teardown_appcontext
+def db_close(exception):
+    storage.close()
 @app.route('/dashboard')
 def dashboard():
     roadmap = storage.all("Roadmap").values()
