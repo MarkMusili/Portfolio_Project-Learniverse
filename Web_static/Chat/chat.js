@@ -22,17 +22,28 @@ $(document).ready(function () {
                 "Content-Type": "application/json",
             },
         })
-            .then((response) => {
-                if (response.ok) {
-                    // Redirect to another page
-                    window.location.href = "https://example.com/another-page";
-                } else {
-                    throw new Error("API request failed");
-                }
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                fetch("http://52.59.213.161:8080/create_roadmap", {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then((response) => {
+                    console.log(response.status);
+                })
+                .then((data) => {
+                    console.log(data);
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
             })
             .catch((error) => {
                 console.error("Error:", error);
             });
-
         });
 });

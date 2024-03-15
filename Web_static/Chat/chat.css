@@ -39,6 +39,9 @@ body {
     overflow: none;
 }
 
+.Header {
+    margin-bottom: 200px;
+}
 .Header p{
     font-size: 25px;
     color: var(--main-color);
@@ -51,7 +54,7 @@ body {
     display: flex;
     max-width: 600px;
     color: var(--main-color);
-    background-color: ;
+    /* background-color: ; */
 }
 
 
@@ -92,52 +95,10 @@ button {
     border-radius: 30px;
 }
 
-
-.response {
-    background-color: var(--reponse-section);
-    border-radius: 30px;
-    padding: 20px;
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    width: 900px;
-}
-
-.ai-response {
-    background-color: var(--more-list-shadow);
-    padding: 20px;
-    border-radius: 15px;
-    margin: 10px;
-    color: #000000;
-}
-
-.satisfied {
-    display: flex;
-    align-items: center;
-    justify-content: end;
-}
-
 p {
     background-color: var(--more-list-shadow);
-    padding: 10px;
+    padding: 12px;
     border-radius: 15px;
     margin-right: 10px;
-}
-
-.reload {
-    background-image: url(Images/reload.png);
-    background-repeat: none;
-    background-size: cover;
-    width: 20px;
-    height: 20px;
-    margin: 7px;
-}
-
-.continue {
-    background-image: url(Images/thumbsup.png);
-    background-size: cover;
-    width: 30px;
-    height: 30px;
-    margin: 7px;
-    border-radius: 10%;
+    height: fit-content;
 }

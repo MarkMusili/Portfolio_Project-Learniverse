@@ -1,6 +1,6 @@
 {
   "Roadmap": {
-    "Title": "Exploring High School Biology",
+    "Title": "Test Roadmap",
     "Introduction": "Welcome to your exciting journey into high school Biology! This roadmap will take you through the fundamentals of life science, from cells to ecosystems. Get ready to investigate the wonders of the natural world!",
     "Topics": [
       {
@@ -28,6 +28,32 @@
           "https://www.biologycorner.com/bio1/notes_cell.html"
         ],
         "Milestones": "Complete this section in 5-6 days"
+      },
+      {
+        "TopicName": "Genetics and Heredity",
+        "LearningObjectives": [
+          "Understand the principles of genetics",
+          "Explain how traits are inherited"
+        ],
+        "Descriptions": "Genetics is the study of heredity and variation in living organisms. In this topic, you'll explore the principles of genetics and learn how traits are inherited.",
+        "Resources": [
+          "https://www.yourgenome.org/",
+          "https://www.nature.com/scitable/topic/genetics-5"
+        ],
+        "Milestones": "Complete this section in 7-8 days"
+      },
+      {
+        "TopicName": "Ecology and Ecosystems",
+        "LearningObjectives": [
+          "Understand the principles of ecology",
+          "Describe the components of ecosystems"
+        ],
+        "Descriptions": "Ecology is the study of how organisms interact with each other and their environment. In this topic, you'll delve into the principles of ecology and explore the components of ecosystems.",
+        "Resources": [
+          "https://www.nationalgeographic.org/encyclopedia/ecology/",
+          "https://www.britannica.com/science/ecology"
+        ],
+        "Milestones": "Complete this section in 9-10 days"
       }
     ],
     "AdditionalInfo": {
@@ -36,3 +62,4 @@
     }
   }
 }
+

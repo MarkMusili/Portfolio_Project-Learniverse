@@ -21,7 +21,7 @@
             </div>
             <div class="d-header-right">
                 <button class="mode-btn">
-                    <img src="../static/Images/Slider-dark-mode-left.png">
+                    <img src="../static/Images/slider-dark-mode-left.png">
                 </button>
                 <button class="notification-btn">
                     <img src="../static/Images/Notificatioin.png">
@@ -34,7 +34,7 @@
         </div>
         <div class="d-content">
             <div class="d-side-bar">
-                <a class="d-nav-home" href="">
+                <a class="d-nav-home" href="http://52.59.213.161:8080/dashboard">
                     <img src="../static/Images/Home-light.png">
                 </a>
                 <a class="d-nav-query" href="http://52.59.213.161/chat.html">
@@ -43,7 +43,7 @@
                 <a class="d-nav-planner" href="">
                     <img src="../static/Images/Planner.png">
                 </a>
-                <a class="d-nav-settings" href="">
+                <a class="d-nav-settings" href="http://52.59.213.161:8080/settings">
                     <img src="../static/Images/Settings.png">
                 </a>            
             </div>
@@ -55,15 +55,15 @@
                 <div class="d-project-section-overview">
                     <div class="project-status">
                         <div class="project-status-item">
-                            <span class="count">0</span>
+                            <span class="count" id="planningCount"></span>
                             <span class="status">Planning</span>
                         </div>
                         <div class="project-status-item">
-                            <span class="count" id="in_progress_count">12</span>
+                            <span class="count" id="in_progressCount"></span>
                             <span class="status">In Progress</span>
                         </div>
                         <div class="project-status-item">
-                            <span class="count" id="completed_count">12</span>
+                            <span class="count" id="completedCount"></span>
                             <span class="status">Completed</span>
                         </div>
                     </div>
@@ -77,12 +77,12 @@
                     </div>
                 </div>
                 <div class="d-project-section-boxes">
-                    <div class="column" style="background-color: #ce4d4d;">
+                    <div class="planningColumn" style="background-color: #ce4d4d;">
                         <div class="column-title" style="background-color: #721616;">Planning</div>
                         {% for roadmap in data %}
                                 {% if roadmap.planning %}
-                                    <div id="planning_{{ roadmap.id }}" class="droppable" ondrop="drop(event, 'planning')" ondragover="allowDrop(event)">
-                                        <div class="project-box-wrapper" style="background-color: #fecbcb;" draggable="true" ondragstart="drag(event)">
+                                    <div id="planning_{{ roadmap.id }}" class="planning" draggable="true">
+                                        <div class="project-box-wrapper" style="background-color: #fecbcb;">
                                             <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                             <div class="project-box-header">
                                                 <p style="font-size: 15px;">{{ roadmap.created_at.strftime('%B %d, %Y') }}</p>
@@ -106,12 +106,12 @@
                                 {% endif %}
                         {% endfor %}
                         </div>
-                    <div class="column" style="background-color: #b3adf5;">
+                    <div class="inProgressColumn" style="background-color: #b3adf5;">
                         <div class="column-title" style="background-color: #685bfa;">In progress</div>
                         {% for roadmap in data %}
                                 {% if  roadmap.in_progress %}
-                                    <div id="inProgress_{{ roadmap.id }}" class="droppable" status="in_progress" ondrop="drop(event, 'inProgress')" ondragover="allowDrop(event)">
-                                        <div class="project-box-wrapper" style="background-color: #dccafa;" draggable="true" ondragstart="drag(event)">
+                                    <div id="inProgress_{{ roadmap.id }}" class="in_progress" draggable="true">
+                                        <div class="project-box-wrapper" style="background-color: #dccafa;">
                                             <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                             <div class="project-box-header">
                                                 <p style="font-size: 15px;">{{ roadmap.created_at.strftime('%B %d, %Y') }}</p>
@@ -135,12 +135,12 @@
                                 {% endif %}
                         {% endfor %}
                     </div>
-                    <div class="column" style="background-color: #adfcbe;">
+                    <div class="completedColumn" style="background-color: #adfcbe;">
                         <div class="column-title" style="background-color: #25bd46;">Completed</div>
                         {% for roadmap in data %}
                                 {% if roadmap.completed %}
-                                    <div id="completed_{{ roadmap.id }}" class="droppable" status="completed" ondrop="drop(event, 'completed')" ondragover="allowDrop(event)">
-                                        <div class="project-box-wrapper" style="background-color: #6bfc8a;" draggable="true" ondragstart="drag(event)">
+                                    <div id="completed_{{ roadmap.id }}" class="completed draggable="true">
+                                        <div class="project-box-wrapper" style="background-color: #6bfc8a;">
                                             <a class="d-project-link" href="{{ url_for('view_roadmap', roadmap_id=roadmap.id) }}" target="_blank">
                                             <div class="project-box-header">
                                                 <p style="font-size: 15px;">{{ roadmap.created_at.strftime('%B %d, %Y') }}</p>
@@ -168,4 +168,5 @@
         </div>
     </div>
 </body>
+<footer style="padding: 30px;"></footer>
 </html>
