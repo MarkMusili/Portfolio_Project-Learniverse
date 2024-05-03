@@ -113,6 +113,7 @@ def create_roadmap():
     """
     Create a new roadmap based on the provided JSON data.
     """
+    from models import storage
     from models.roadmap import Roadmap
     from models.topics import Topic
     from models.resources import Resources
@@ -120,10 +121,11 @@ def create_roadmap():
 
     response = json.loads(request.get_json())
     roadmap_response = response.values()
+    user = storage.show("User", "6c970b0d-caed-4ff1-8eee-0ecf04ac7482")
 
     for data in roadmap_response:
         roadmap_data = {
-            'user_id': "6c970b0d-caed-4ff1-8eee-0ecf04ac7482",
+            'user_id': user.id,
             'title': data['Title'],
             'introduction': data['Introduction'],
             'AdditionalInfo': data['AdditionalInfo'],
@@ -158,6 +160,9 @@ def create_roadmap():
 
             roadmap.topic.append(topic)
             topic.save()
+    
+    user.roadmaps.append(roadmap)
+    user.save()
 
     return f"{r_id}"
 
