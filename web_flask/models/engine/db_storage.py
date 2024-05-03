@@ -19,7 +19,12 @@ class DBStorage:
     __session = None
 
     def __init__(self):
-        """Initialization"""
+        """
+        Initializes a new DBStorage instance.
+        
+        Connects to the MySQL database using environment variables.
+        Drops existing tables if the environment is set to test.
+        """
         self.__engine = create_engine(
                                     'mysql+mysqldb://{}:{}@{}:3306/{}'.
                                     format(
@@ -37,8 +42,17 @@ class DBStorage:
                                             expire_on_commit=False))
 
     def all(self, cls=None):
-        """"Query on the current database session all
-        objects depending on class name"""
+        """
+        Retrieves all objects from the database session.
+
+        If a class name is specified, filters objects by that class.
+        
+        Args:
+            cls (str, optional): The class name for filtering objects.
+
+        Returns:
+            dict: A dictionary containing objects with keys formatted as '<class_name>.<object_id>'.
+        """
         objects = {}
         if cls:
             if isinstance(cls, str):
@@ -58,7 +72,16 @@ class DBStorage:
         return objects
     
     def show(self, cls, id):
-        """Shows a specific object"""
+        """
+        Retrieves a specific object from the database.
+
+        Args:
+            cls (str): The class name of the object.
+            id (str): The ID of the object to retrieve.
+
+        Returns:
+            object: The specified object from the database.
+        """
         if cls and id:
             if isinstance(cls, str) and isinstance(id, str):
                 cls = eval(cls)
@@ -67,7 +90,16 @@ class DBStorage:
             return query
 
     def fetch(self, cls_name, ref_id):
-        """ Fetches the children of a specific parent """
+        """
+        Fetches the children of a specific parent object.
+
+        Args:
+            cls_name (str): The class name of the parent object.
+            ref_id (int): The reference ID of the parent object.
+
+        Returns:
+            dict: A dictionary containing children objects with keys formatted as '<class_name>.<object_id>'.
+        """
         objects = {}
         if cls_name and ref_id:
             class_map = {
@@ -102,7 +134,15 @@ class DBStorage:
         return objects
 
     def count(self, cls):
-        """Counts the number of a certain class in the storage"""
+        """
+        Counts the number of objects of a certain class in the storage.
+
+        Args:
+            cls (str): The class name of the objects to be counted.
+
+        Returns:
+            int: The count of objects of the specified class.
+        """
         objects = {}
         if cls:
             if isinstance(cls, str):
@@ -115,26 +155,42 @@ class DBStorage:
 
 
     def new(self, obj):
-        """Creates a new object"""
+        """
+        Adds a new object to the current database session.
+
+        Args:
+            obj (object): The object to be added to the session.
+        """
         self.__session.add(obj)
 
     def save(self):
-        """Saves an object"""
+        """
+        Commits the current database session, saving any changes made to the objects.
+        """
         self.__session.commit()
 
     def delete(self, obj=None):
-        """Deletes an object"""
+        """
+        Deletes the specified object from the database session if provided.
+
+        Args:
+            obj (object, optional): The object to be deleted.
+        """
         if obj is not None:
             self.__session.delete(obj)
 
     def reload(self):
-        """Reloads an object """
+        """
+        Reloads the database session by recreating the session and metadata based on the engine.
+        """
         Base.metadata.create_all(self.__engine)
         sec = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sec)
         self.__session = Session()
 
     def close(self):
-        """Close working SQLAlchemy session"""
+        """
+        Close working SQLAlchemy session
+        """
         self.__session.close()
 

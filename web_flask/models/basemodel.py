@@ -37,12 +37,22 @@ class BaseModel():
             self.updated_at = self.created_at
 
     def __str__(self):
-        """Returns a string representation of the instance"""
+        """
+        Returns a string representation of the instance.
+
+        Returns:
+            str: A string containing the class name, instance ID, and instance attributes.
+        """
         cls = (str(type(self)).split('.')[-1]).split('\'')[0]
         return f'[{cls}] ({self.id}) {self.__dict__}'
 
     def save(self):
-        """Updates updated_at with current time when instance is changed"""
+        """
+        Updates the instance's updated_at attribute and saves it to storage.
+
+        Note:
+            The updated_at attribute is automatically set to the current date and time before saving.
+        """
         from models import storage
         self.updated_at = datetime.now()
         storage.new(self)
@@ -50,7 +60,12 @@ class BaseModel():
         storage.save()
 
     def to_dict(self):
-        """Convert instance into dict format"""
+        """
+        Converts the instance into a dictionary.
+
+        Returns:
+            dict: A dictionary representation of the instance, including its attributes.
+        """
         dictionary = {}
         dictionary.update(self.__dict__)
         dictionary.update({'__class__':
