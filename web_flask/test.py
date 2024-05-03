@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+from models import storage
 from models.roadmap import Roadmap
 from models.topics import Topic
 from models.objectives import Objectives
@@ -10,10 +11,11 @@ with open('text.json', 'r') as t:
     roadmap = json.load(t).values()
     # with open('data.json', 'w') as f:
     #     json.dump(roadmap, f)
+    user = storage.show("User", "dd5757f3-ec41-4f6b-840d-3116e9d232aa")
 
     for data in roadmap:
         roadmap_data = {
-            'user_id': "0d54ee7c-7414-46f0-861c-b51486114282",
+            'user_id': user.id,
             'title': data['Title'],
             'introduction': data['Introduction'],
             'AdditionalInfo': data['AdditionalInfo'],
@@ -47,4 +49,7 @@ with open('text.json', 'r') as t:
 
             roadmap.topic.append(topic)
             topic.save()
+
+    user.roadmaps.append(roadmap)
+    user.save()
 

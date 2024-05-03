@@ -1,8 +1,12 @@
 #!/usr/bin/python3
 """ """
 from models.basemodel import BaseModel, Base
-from sqlalchemy import Column, String, LargeBinary
+from sqlalchemy import Column, String, LargeBinary, Table, ForeignKey
 from sqlalchemy.orm import relationship
+
+user_roadmap = Table('user_roadmap', Base.metadata,
+                     Column('user_id', String(60), ForeignKey('users.id', onupdate='CASCADE', ondelete='CASCADE'), primary_key=True),
+                     Column('roadmap_id', String(60), ForeignKey('roadmap.id', onupdate='CASCADE', ondelete='CASCADE'), primary_key=True))
 
 
 class User(BaseModel, Base):
@@ -20,3 +24,4 @@ class User(BaseModel, Base):
     name = Column(String(128), nullable=False)
     # photo = Column(LargeBinary, default=binary_data)
     reviews = relationship('Review', cascade='all, delete-orphan', backref='user')
+    roadmaps = relationship("Roadmap", secondary=user_roadmap, viewonly=False, backref='user')
