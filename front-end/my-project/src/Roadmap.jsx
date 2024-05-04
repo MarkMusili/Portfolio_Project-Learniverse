@@ -13,17 +13,17 @@ function Roadmap() {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-2xl rounded-lg shadow-md bg-white">
-      <h1 className="text-center text-3xl font-bold mb-4 underline">{roadmap.Title}</h1>
-      <div className="introduction-box bg-gray-100 p-4 rounded-lg shadow-sm">
+    <div className="container mx-auto px-4 py-4 max-w-6xl rounded-lg shadow-md bg-white">
+      <h1 className="text-center text-3xl font-bold mb-4 underline text-blue-700">{roadmap.Title}</h1>
+      <div className="introduction-box bg-blue-100 p-4 rounded-lg shadow-sm">
         <h2 className="text-xl font-bold mb-2">Introduction</h2>
         <p id="introduction">{roadmap.Introduction}</p>
       </div>
-      <div className="topics-box bg-gray-100 p-4 rounded-lg shadow-sm">
+      <div className="topics-box bg-blue-100 p-4 rounded-lg shadow-sm">
         <h2 className="text-xl font-bold mb-2">Topics:</h2>
-        <ul className="flex flex-wrap justify-center gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
           {roadmap.Topics && roadmap.Topics.map((topic, index) => (
-            <li key={index} className="topic p-4 rounded-lg shadow-md bg-white w-full md:w-1/2">
+            <div key={index} className="topic p-8 rounded-lg shadow-md bg-white">
               <h3 className="text-lg font-bold mb-2">{topic.TopicName}</h3>
               <p>{topic.Descriptions}</p>
               <div className="objectives mt-4">
@@ -43,12 +43,12 @@ function Roadmap() {
                   </a>
                 ))}
               </p>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
       {roadmap.AdditionalInfo && (
-        <div className="additional-info-box bg-gray-100 p-4 rounded-lg shadow-sm">
+        <div className="additional-info-box bg-blue-100 p-4 rounded-lg shadow-sm">
           <h2 className="text-xl font-bold mb-2">Additional Information</h2>
           <p className="font-bold">
             <b>Tip</b>: {roadmap.AdditionalInfo.Tips}
