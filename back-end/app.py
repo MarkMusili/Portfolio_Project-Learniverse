@@ -79,8 +79,9 @@ def dashboard():
     """
     roadmap = storage.all("Roadmap").values()
     data = sorted(roadmap, key=lambda k: k.created_at, reverse=True)
+    roadmaps = [roadmap.to_dict() for roadmap in data]
     # return render_template('dashboard.html', data=data)
-    return jsonify([roadmap.to_dict() for roadmap in data])
+    return jsonify(roadmaps)
 
 # Endpoint for viewing a specific roadmap
 @app.route('/roadmap/<roadmap_id>')
@@ -114,7 +115,7 @@ def view_roadmap(roadmap_id):
     return jsonify({
         'roadmap': roadmap.to_dict(),
         'objectives': [obj.to_dict() for obj in objectives],
-        'topics': [topic.to_dict() for topic in topics.values()],
+        'topics': [topic.to_dict() for topic in sorted(topics.values(), key=lambda t: t.position)],
         'resources': [res.to_dict() for res in resources]
     })
 
@@ -130,9 +131,9 @@ def create_roadmap():
     from models.resources import Resources
     from models.objectives import Objectives
 
-    response = json.loads(request.get_json())
+    response = request.get_json()
     roadmap_response = response.values()
-    user = storage.show("User", "6c970b0d-caed-4ff1-8eee-0ecf04ac7482")
+    user = storage.show("User", "dd5757f3-ec41-4f6b-840d-3116e9d232aa")
 
     for data in roadmap_response:
         roadmap_data = {
