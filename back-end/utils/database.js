@@ -8,7 +8,7 @@ const pool = createPool({
     connectionLimit:10
 })
 
-pool.query(`select * from roadmap`, (err, result, fields) => {
+pool.query(`select * from roadmap`, (err, result, _fields) => {
     if (err) {
         return console.log(err);
     }
