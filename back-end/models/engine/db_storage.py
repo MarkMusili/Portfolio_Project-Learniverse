@@ -1,6 +1,7 @@
 #/usr/bin/python3
 """New storage"""
 import os
+from dotenv import load_dotenv
 from models.basemodel import Base
 from models.reviews import Review
 from models.dashboard import Dashboard
@@ -25,6 +26,7 @@ class DBStorage:
         Connects to the MySQL database using environment variables.
         Drops existing tables if the environment is set to test.
         """
+        load_dotenv()
         self.__engine = create_engine(
                                     'mysql+mysqldb://{}:{}@{}:3306/{}'.
                                     format(
