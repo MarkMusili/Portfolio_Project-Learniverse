@@ -1,6 +1,5 @@
 ai/
 **/__pycache__/
-.gitignore
 **/text.json
 *.txt
 **/test.py
