@@ -21,4 +21,6 @@ router.get('/profile', getProfile);
 router.post('/resetPassword', requestPasswordResetToken);
 router.put('/resetPassword', updatePassword);
 
+// TODO: Ai routes
+
 module.exports = router;
