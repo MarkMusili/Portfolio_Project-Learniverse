@@ -12,6 +12,10 @@ from models.resources import Resources
 from models.objectives import Objectives
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.orm.session import Session
+from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
+
 
 
 class DBStorage:
@@ -189,6 +193,61 @@ class DBStorage:
         sec = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sec)
         self.__session = Session()
+
+    def find_user_by(self, **kwargs) -> User:
+        """
+        
+        """
+        user_keys = ['id', 'email', 'hashed_password', 'session_id', 'reset_token']
+        for key in kwargs.keys():
+            if key not in user_keys:
+                raise InvalidRequestError
+        user = self.__session.query(User).filter_by(**kwargs).first()
+        if user is None:
+            raise NoResultFound
+        return user
+
+    def add_user(self,
+                 first_name: str,
+                 last_name: str,
+                 email: str,
+                 password: str) -> User:
+        """
+        Create a new user.
+
+        Args:
+            first_name (str): The first name of the new user.
+            last_name (str): The last name of the new user.
+            email (str): The email address of the new user.
+            password (str): The password for the new user.
+
+        Returns:
+            User: The created user object.
+        """
+        new_user = User(first_name=first_name, last_name=last_name, email=email, password=password)
+        self.new(new_user)
+        self.save()
+        return new_user
+    
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """
+        Updates a user based on their id
+        """
+        user_keys = ['id', 'email', 'password',
+                     'session_id', 'reset_token']
+        for key in kwargs.keys():
+            if key not in user_keys:
+                raise ValueError
+        try:
+            user = self.find_user_by(id=user_id)
+        except NoResultFound:
+            raise ValueError
+
+        for key, value in kwargs.items():
+            setattr(user, key, value)
+
+        self.save()
+
 
     def close(self):
         """

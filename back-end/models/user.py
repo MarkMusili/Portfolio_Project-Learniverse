@@ -20,8 +20,11 @@ class User(BaseModel, Base):
     
     __tablename__ = "users"
     email = Column(String(128), nullable=False)
-    password = Column(String(128), nullable=False)
-    name = Column(String(128), nullable=False)
+    password = Column(String(250), nullable=False)
+    first_name = Column(String(128), nullable=False)
+    last_name = Column(String(128), nullable=False)
+    session_id = Column(String(250), nullable=True)
+    reset_token = Column(String(250), nullable=True)
     # photo = Column(LargeBinary, default=binary_data)
     reviews = relationship('Review', cascade='all, delete-orphan', backref='user')
     roadmaps = relationship("Roadmap", secondary=user_roadmap, viewonly=False, backref='user')
