@@ -133,47 +133,53 @@ def create_roadmap():
     from models.resources import Resources
     from models.objectives import Objectives
 
-    response = request.get_json()
-    roadmap_response = response.values()
-    user = storage.show("User", "dd5757f3-ec41-4f6b-840d-3116e9d232aa")
+    user_id = request.json.get("user_id")
+    roadmap_response = request.json.get("roadmaps")
+    if not roadmap_response or not user_id:
+        return jsonify({'error': 'Invalid request body'}), 403
+    
+    user = storage.show("User", user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 400
 
-    for data in roadmap_response:
-        roadmap_data = {
-            'user_id': user.id,
-            'title': data['Title'],
-            'introduction': data['Introduction'],
-            'AdditionalInfo': data['AdditionalInfo'],
-            'planning': True,
-            'in_progress': False,
-            'completed': False
-        }
-        roadmap = Roadmap(**roadmap_data)
-        roadmap.save()
-        r_id = roadmap.id
+    
+    # for data in roadmap_response:
+    roadmap_data = {
+        'user_id': user_id,
+        'title': roadmap_response['Title'],
+        'introduction': roadmap_response['Introduction'],
+        'AdditionalInfo': roadmap_response['AdditionalInfo'],
+        'planning': True,
+        'in_progress': False,
+        'completed': False
+    }
+    roadmap = Roadmap(**roadmap_data)
+    roadmap.save()
+    r_id = roadmap.id
 
-        position = 1
-        for topic_data in data["Topics"]:
-            topic = Topic(
-                position=position,
-                roadmap_id=roadmap.id,
-                name=topic_data['TopicName'],
-                description=topic_data['Descriptions'],
-                milestones=topic_data['Milestones']
-            )
-            position += 1
+    position = 1
+    for topic_data in roadmap_response["Topics"]:
+        topic = Topic(
+            position=position,
+            roadmap_id=roadmap.id,
+            name=topic_data['TopicName'],
+            description=topic_data['Descriptions'],
+            milestones=topic_data['Milestones']
+        )
+        position += 1
 
-            for objective_text in topic_data['LearningObjectives']:
-                objective = Objectives(name=objective_text, topic_id=topic.id)
-                topic.objectives.append(objective)
-                objective.save()
+        for objective_text in topic_data['LearningObjectives']:
+            objective = Objectives(name=objective_text, topic_id=topic.id)
+            topic.objectives.append(objective)
+            objective.save()
 
-            for resource_link in topic_data['Resources']:
-                resource = Resources(link=resource_link, topic_id=topic.id)
-                topic.resources.append(resource)
-                resource.save()
+        for resource_link in topic_data['Resources']:
+            resource = Resources(link=resource_link, topic_id=topic.id)
+            topic.resources.append(resource)
+            resource.save()
 
-            roadmap.topic.append(topic)
-            topic.save()
+        roadmap.topic.append(topic)
+        topic.save()
     
     user.roadmaps.append(roadmap)
     user.save()
@@ -187,8 +193,12 @@ def update_roadmap_status(roadmap_id):
     Update the status of a roadmap (planning, in_progress, or completed).
     """
     try:
-        roadmap = storage.get("Roadmap", roadmap_id)
+        roadmap = storage.show("Roadmap", roadmap_id)
+        if not roadmap:
+            return jsonify({'error': 'Roadmap not found'}), 404
         new_status = request.json.get('new_status')
+        if not new_status:
+            return jsonify({'error': 'Invalid request body'}), 403
 
         if new_status == 'planning':
             roadmap.planning = True
@@ -204,7 +214,7 @@ def update_roadmap_status(roadmap_id):
             roadmap.in_progress = False
 
         roadmap.save()
-        return jsonify({'message': 'Roadmap status updated successfully'}), 200
+        return jsonify({'message': f'Roadmap status ({new_status}) updated successfully'}), 200
     except Exception as e:
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
     

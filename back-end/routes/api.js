@@ -1,48 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const { fetchDashboard, fetchRoadmap, createRoadmap, updateRoadmapStatus } = require('../controllers/roadmapController');
+const { registerUser, loginUser, logoutUser, getProfile, requestPasswordResetToken, updatePassword } = require('../controllers/userController')
 
 router.use(express.json());
 
 // Routes
-router.get('/dashboard', async (_req, res, next) => {
-    try {
-        const roadmaps = await fetchDashboard();
-        res.json(roadmaps);
-    } catch (error) {
-        next(error);
-    }
-});
 
-router.get('/roadmap/:roadmapId', async (req, res, next) => {
-    const { roadmapId } = req.params;
-    try {
-        const roadmap = await fetchRoadmap(roadmapId);
-        res.json(roadmap);
-    } catch (error) {
-        next(error);
-    }
-});
+// Roadmap routes
+router.get('/dashboard', fetchDashboard);
+router.get('/roadmap/:roadmapId', fetchRoadmap);
+router.post('/newRoadmap', createRoadmap);
+router.put('/updateRoadmap/:roadmapId', updateRoadmapStatus);
 
-router.post('/newRoadmap', async (req, res, next) => {
-    const roadmapData = req.body;
-    try {
-        const createdRoadmap = await createRoadmap(roadmapData);
-        res.json(createdRoadmap);
-    } catch (error) {
-        next(error);
-    }
-});
-
-router.put('/updateRoadmap/:roadmapId', async (req, res, next) => {
-    const { roadmapId } = req.params;
-    const { newStatus } = req.body;
-    try {
-        const updatedRoadmap = await updateRoadmapStatus(roadmapId, newStatus);
-        res.json(updatedRoadmap);
-    } catch (error) {
-        next(error);
-    }
-});
+// User routes
+router.post('/register', registerUser);
+router.post('/login', loginUser);
+router.delete('/logout', logoutUser);
+router.get('/profile', getProfile);
+router.post('/resetPassword', requestPasswordResetToken);
+router.put('/resetPassword', updatePassword);
 
 module.exports = router;

@@ -3,49 +3,77 @@ const axios = require('axios');
 const BASE_URL = 'http://localhost:8080';
 
 // Function to fetch roadmaps from the server
-exports.fetchDashboard = async function fetchDashboard() {
+exports.fetchDashboard = async function fetchDashboard(_req, res) {
     try {
         const response = await axios.get(`${BASE_URL}/dashboard`);
-        return response.data;
+        roadmaps = await response.data;
+        res.json(roadmaps);
     } catch (error) {
-        throw new Error('Failed to fetch roadmaps');
+        console.error(error);
+        return res.status(500).json({"message": "Internal Server Error"})
     }
 }
 
 // Function to fetch a specific roadmap by ID
-exports.fetchRoadmap = async function fetchRoadmap(roadmapId) {
+exports.fetchRoadmap = async function fetchRoadmap(req, res) {
+    const { roadmapId } = req.params;
     try {
         const response = await axios.get(`${BASE_URL}/roadmap/${roadmapId}`);
-        return response.data;
+        const roadmap = await response.data;
+        res.json(roadmap);
     } catch (error) {
-        throw new Error(`Failed to fetch roadmap with ID: ${roadmapId}`);
+        // console.error(error);
+        if (error.response && error.response.status === 404) {
+            return res.status(404).json({"message": "Roadmap not found"})
+        }
+        return res.status(500).json({"message": "Internal Server Error"})
     }
 }
 
 // Function to create a new roadmap
-exports.createRoadmap = async function createRoadmap(roadmapData) {
+exports.createRoadmap = async function createRoadmap(req, res) {
+    const { user_id, Roadmap } = req.body;  // Corrected from req.form to req.body
+
     try {
-        const response = await axios.post(`${BASE_URL}/create_roadmap`, roadmapData, {
+        const response = await axios.post(`${BASE_URL}/create_roadmap`, {
+            user_id: user_id,
+            roadmaps: Roadmap  // Ensure roadmaps key is used
+        }, {
             headers: {
                 'Content-Type': 'application/json',
             }
         });
-        return response.data;
+
+        return res.status(201).json(response.data);
     } catch (error) {
-        throw new Error('Failed to create roadmap');
+        // console.error(error);
+        if (error.response && error.response.status === 400) {
+            return res.status(400).json({"message": "User Not Found"})
+        } else if (error.response && error.response.status === 403) {
+            return res.status(403).json({"message": "Invalid Request Body"})
+        }
+        return res.status(500).json({"message": "Internal Server Error"})
     }
 }
 
 // Function to update the status of a roadmap
-exports.updateRoadmapStatus = async function updateRoadmapStatus(roadmapId, newStatus) {
+exports.updateRoadmapStatus = async function updateRoadmapStatus(req, res) {
+    const { roadmapId } = req.params;
+    const { newStatus } = req.body;
     try {
         const response = await axios.put(`${BASE_URL}/update_roadmap_status/${roadmapId}`, { new_status: newStatus }, {
             headers: {
                 'Content-Type': 'application/json',
             }
         });
-        return response.data;
+        return res.status(200).json(response.data);
     } catch (error) {
-        throw new Error(`Failed to update status for roadmap with ID: ${roadmapId}`);
+        // console.error(error);
+        if (error.response && error.response.status === 404) {
+            return res.status(404).json({"message": "Roadmap not found"})
+        } else if (error.response && error.response.status === 403) {
+            return res.status(403).json({"message": "Invalid Request Body"})
+        }
+        return res.status(500).json({"message": "Internal Server Error"})
     }
 }
