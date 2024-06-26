@@ -4,3 +4,4 @@ ai/
 *.txt
 **/test.py
 **/text.json
+*.pem
