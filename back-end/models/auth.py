@@ -12,42 +12,67 @@ from typing import Union
 
 def _hash_password(password: str) -> bytes:
     """
-    Hashes a password
+    Hashes a password.
+
+    Args:
+        password (str): The password to be hashed.
+
+    Returns:
+        bytes: The hashed password.
     """
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-
 def _generate_uuid() -> str:
     """
-    Generate uuid
+    Generates a UUID.
+
+    Returns:
+        str: The generated UUID.
     """
     return str(uuid4())
 
-
 class Auth:
-    """Auth class to interact with the authentication database
     """
-    def register_user(self,
-                 first_name: str,
-                 last_name: str,
-                 email: str,
-                 password: str) -> User:
+    Auth class to interact with the authentication database.
+    """
+
+    def register_user(self, first_name: str, last_name: str, email: str, password: str) -> User:
         """
-        Registers a user
+        Registers a user.
+
+        Args:
+            first_name (str): The first name of the user.
+            last_name (str): The last name of the user.
+            email (str): The email of the user.
+            password (str): The password of the user.
+
+        Returns:
+            User: The registered user.
+
+        Raises:
+            ValueError: If the user already exists.
         """
         try:
-            storage.find_user_by(email=email)
+            user: User = storage.find_user_by(email=email)
         except NoResultFound:
-            return storage.add_user(first_name, last_name, email, _hash_password(password))
+            hashed_password: bytes = _hash_password(password)
+            return storage.add_user(first_name, last_name, email, hashed_password)
 
         raise ValueError(f'User {email} already exists')
 
     def valid_login(self, email: str, password: str) -> bool:
         """
-        Validation of credentials
+        Validates user credentials.
+
+        Args:
+            email (str): The email of the user.
+            password (str): The password of the user.
+
+        Returns:
+            bool: True if the credentials are valid, False otherwise.
         """
         try:
-            user = storage.find_user_by(email=email)
+            user: User = storage.find_user_by(email=email)
         except NoResultFound:
             return False
 
@@ -55,13 +80,19 @@ class Auth:
             return True
         return False
 
-    def create_session(self, email: str) -> str:
+    def create_session(self, email: str) -> Union[str, None]:
         """
-        Creates a session
+        Creates a session.
+
+        Args:
+            email (str): The email of the user.
+
+        Returns:
+            Union[str, None]: The session ID if successful, None otherwise.
         """
         try:
-            user = storage.find_user_by(email=email)
-            session_id = _generate_uuid()
+            user: User = storage.find_user_by(email=email)
+            session_id: str = _generate_uuid()
             storage.update_user(user.id, session_id=session_id)
             return session_id
         except NoResultFound:
@@ -69,20 +100,32 @@ class Auth:
 
     def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
         """
-        Get user from session id
+        Gets a user from a session ID.
+
+        Args:
+            session_id (str): The session ID.
+
+        Returns:
+            Union[User, None]: The user if found, None otherwise.
         """
         if session_id is None:
             return None
 
         try:
-            user = storage.find_user_by(session_id=session_id)
+            user: User = storage.find_user_by(session_id=session_id)
             return user
         except NoResultFound:
             return None
 
     def destroy_session(self, user_id: str) -> None:
         """
-        Destroys a session
+        Destroys a session.
+
+        Args:
+            user_id (str): The user ID.
+
+        Returns:
+            None
         """
         if user_id is None:
             return None
@@ -90,11 +133,20 @@ class Auth:
 
     def get_reset_password_token(self, email: str) -> str:
         """
-        Gets reset_password token
+        Gets a reset password token.
+
+        Args:
+            email (str): The email of the user.
+
+        Returns:
+            str: The reset password token.
+
+        Raises:
+            ValueError: If the user is not found.
         """
         try:
-            user = storage.find_user_by(email=email)
-            token = _generate_uuid()
+            user: User = storage.find_user_by(email=email)
+            token: str = _generate_uuid()
             storage.update_user(user.id, reset_token=token)
             return token
         except NoResultFound:
@@ -102,14 +154,25 @@ class Auth:
 
     def update_password(self, reset_token: str, password: str) -> None:
         """
-        Updates a password
+        Updates a password.
+
+        Args:
+            reset_token (str): The reset password token.
+            password (str): The new password.
+
+        Returns:
+            None
+
+        Raises:
+            ValueError: If the reset token is not found.
         """
         try:
-            user = storage.find_user_by(reset_token=reset_token)
+            user: User = storage.find_user_by(reset_token=reset_token)
+            hashed_password: bytes = _hash_password(password)
             storage.update_user(
                 user.id,
                 reset_token=None,
-                password=_hash_password(password)
-                )
+                password=hashed_password
+            )
         except NoResultFound:
             raise ValueError
