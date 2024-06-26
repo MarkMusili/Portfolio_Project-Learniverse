@@ -30,14 +30,15 @@ from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import openai
 import json
-from os import environ
+from os import environ, getenv
+from dotenv import load_dotenv
 from models import storage
 
 app = Flask(__name__)
 CORS(app)
 
 # Initialize OpenAI client
-client = openai.Client(api_key=environ['OPENAI_API_KEY'])
+client = openai.Client(api_key=getenv('OPENAI_API_KEY'))
 
 # Close the database connection at the end of each request
 @app.teardown_appcontext
@@ -62,7 +63,7 @@ def chat():
     """
     data = request.get_json()
     completion = client.chat.completions.create(
-        model=environ['OPENAI_MODEL_ID'],
+        model=getenv('OPENAI_MODEL_ID'),
         messages=[
             {"role": "system", "content": "Given the specific topic, generate a comprehensive learning roadmap in json format. This should include a title for the whole concept, an engaging introduction, a detailed organization of topics and subtopics, learning objectives for each, numerous external links tailored to learners' preferences, time-based milestones, and optional additional information like tips and project ideas. Ensure the roadmap is flexible and diverse to adapt to various learners' needs and goals."},
             {"role": "user", "content": data["prompt"]}

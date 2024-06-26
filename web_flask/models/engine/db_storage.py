@@ -1,6 +1,7 @@
 #/usr/bin/python3
 """New storage"""
 import os
+from dotenv import load_dotenv
 from models.basemodel import Base
 from models.reviews import Review
 from models.dashboard import Dashboard
@@ -20,6 +21,7 @@ class DBStorage:
 
     def __init__(self):
         """Initialization"""
+        load_dotenv()
         self.__engine = create_engine(
                                     'mysql+mysqldb://{}:{}@{}:3306/{}'.
                                     format(

@@ -1,0 +1,73 @@
+-- Prepare a Mysql Server
+cat setup_mysql_dev.sql | mysql -hlocalhost -uroot -p
+echo "SHOW DATABASES;" | mysql -urdmp_dev -p | grep rdmp_dev_db
+echo "SHOW GRANTS FOR 'rdmp_dev'@'localhost';" | mysql -uroot -p
+```
+Grants for rdmp_dev@localhost
+GRANT USAGE ON *.* TO 'rdmp_dev'@'localhost'
+GRANT SELECT ON `performance_schema`.* TO 'rdmp_dev'@'localhost'
+GRANT ALL PRIVILEGES ON `rdmp_dev_db`.* TO 'rdmp_dev'@'localhost'
+```
+
+-- Set up mysql test Server
+cat setup_mysql_test.sql | mysql -hlocalhost -uroot -p
+echo "SHOW DATABASES;" | mysql -urdmp_test -p | grep rdmp_test_db
+echo "SHOW GRANTS FOR 'rdmp_test'@'localhost';" | mysql -uroot -p
+```
+Grants for rdmp_test@localhost
+GRANT USAGE ON *.* TO 'rdmp_test'@'localhost'
+GRANT SELECT ON `performance_schema`.* TO 'rdmp_test'@'localhost'
+GRANT ALL PRIVILEGES ON `rdmp_test_db`.* TO 'rdmp_test'@'localhost'
+```
+
+-----Open up the console
+RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py
+
+
+
+-- Set up a user with any name
+echo 'create User name="John_Doe" email="JDoe@outlook.com" password="my_password"' | RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py 
+echo 'create User name="Alice_Smith" email="asmith@example.com" password="secure_password"' | RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py
+echo 'create User name="Bob_Johnson" email="bjohnson@example.com" password="strong_pass"' | RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py
+echo 'create User name="Emma_Brown" email="ebrown@example.com" password="p@ssw0rd"' | RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py
+echo 'create User name="Michael_Johnson" email="mjohnson@example.com" password="Mj@123"' | RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py
+
+echo 'SELECT * FROM users\G' | mysql -urdmp_dev -p rdmp_dev_db
+
+
+----Set up a roadmap
+echo 'create Roadmap' | RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py 
+
+echo 'SELECT * FROM roadmap\G' | mysql -urdmp_dev -p rdmp_dev_db
+
+
+---Set up a dashboard
+echo 'create Dashboard roadmap_id="{roadmap.id}" planning=0 in_progress=3 completed=4' | RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py 
+
+echo 'SELECT * FROM dashboard\G' | mysql -urdmp_dev -p rdmp_dev_db
+
+
+----Set up reviews
+echo 'create Review user_id={user.id} text="Lorem_ipsum_dolor_sit_amet,_consectetur_adipiscing_elit._Integer_vitae_dolor_quis_felis_efficitur_fermentum._Donec_nec_lacinia_justo._Sed_tempus_odio_nec_purus_vehicula,_sit_amet_faucibus_nulla_fringilla._Nulla_facilisi._Nam_vestibulum_arcu_sit_amet_lectus_fringilla,_quis_sagittis_elit_dapibus._Aliquam_erat_volutpat._Nullam_accumsan_uUamcorper_lacus_id_tincidunt._Duis_et_urna_ut_dolor_gravida_malesuada._Integer_in_dui_in_massa_iaculis_feugiat._Donec_nec_nulla_a_nisi_vestibulum_dignissim_a_in_dolor._Morbi_pharetra_diam_at_fermentum_sagittis._Suspendisse_non_ligula_ut_mauris_mattis_tristique._Donec_feugiat_tellus_quis_sapien_fringilla,_vel_ultricies_lorem_dictum._Nulla_lobortis_dolor_nec_elit_sagittis,_vel_auctor_lorem_convallis._Nulla_facilisi."' | RDMP_MYSQL_USER=rdmp_dev RDMP_MYSQL_PWD=rdmp_dev_pwd RDMP_MYSQL_HOST=localhost RDMP_MYSQL_DB=rdmp_dev_db RDMP_TYPE_STORAGE=db ./console.py 
+
+echo 'SELECT * FROM reviews\G' | mysql -urdmp_dev -p rdmp_dev_db
+
+
+---------------DO NOT TOUCH---
+echo 'DROP TABLE reviews\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE dashboard\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE users\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE resources\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE objectives\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE topics\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE dashboard\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE roadmap\G' | mysql -urdmp_dev -p rdmp_dev_db
+
+
+
+e218862b-e922-49b5-a8d4-900a0401dda1
+
+98abb941-79bd-4df1-bcc7-1acd4b34406b
+f76c5c77-7dc4-4088-9a20-b55db2336740
+
+create Roadmap user_id='e6cfa73a-6b5d-4aaa-af81-428a78c2aeee' title='Motion_1:_Understanding_Basic_Concepts_of_Motion' introduction="Welcome_to_your_journey_into_motion!_This_roadmap_will_introduce_you_to_the_fundamental_concepts_of_motion,_a_key_topic_in_physics._Get_ready_to_explore_the_world_of_speed,_velocity,_and_acceleration._Ready,_set,_let's_go!"
