@@ -66,7 +66,8 @@ def chat():
         messages=[
             {"role": "system", "content": "Given the specific topic, generate a comprehensive learning roadmap in json format. This should include a title for the whole concept, an engaging introduction, a detailed organization of topics and subtopics, learning objectives for each, numerous external links tailored to learners' preferences, time-based milestones, and optional additional information like tips and project ideas. Ensure the roadmap is flexible and diverse to adapt to various learners' needs and goals."},
             {"role": "user", "content": data["prompt"]}
-        ]
+        ],
+        max_tokens=1000,
     )
     response = completion.choices[0].message.content
     return jsonify(response)
