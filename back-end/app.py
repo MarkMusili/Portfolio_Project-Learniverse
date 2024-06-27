@@ -30,10 +30,10 @@ from flask import Flask, request, jsonify, abort, redirect
 from flask_cors import CORS
 import openai
 import json
-from os import environ, getenv
+from os import getenv
 from dotenv import load_dotenv
 from models import storage
-from models.auth import Auth
+from auth import Auth
 
 app = Flask(__name__)
 CORS(app)
@@ -136,14 +136,16 @@ def create_roadmap():
     from models.objectives import Objectives
 
     user_id = request.json.get("user_id")
+    if not user_id:
+        abort(403, descrption="Missing User Id")
+
     roadmap_response = request.json.get("roadmaps")
-    if not roadmap_response or not user_id:
-        return jsonify({'error': 'Invalid request body'}), 403
+    if not roadmap_response:
+        abort(403, description="Missing Roadmap")
     
     user = storage.show("User", user_id)
     if not user:
-        return jsonify({'error': 'User not found'}), 400
-
+        abort(400, description=f"User id: {user_id} Not Found")
     
     # for data in roadmap_response:
     roadmap_data = {
@@ -197,10 +199,11 @@ def update_roadmap_status(roadmap_id):
     try:
         roadmap = storage.show("Roadmap", roadmap_id)
         if not roadmap:
-            return jsonify({'error': 'Roadmap not found'}), 404
+            abort(404, description="Roadmap Not Found")
+
         new_status = request.json.get('new_status')
         if not new_status:
-            return jsonify({'error': 'Invalid request body'}), 403
+            abort(403, description="Invalid Request body")
 
         if new_status == 'planning':
             roadmap.planning = True
@@ -233,7 +236,7 @@ def register_user() -> str:
     try:
         AUTH.register_user(first_name, last_name, email, password)
     except ValueError:
-        return jsonify({"message": "email already registered"}), 400
+        abort(400, description="Email already registered")
     return jsonify({"email": email, "message": "user created"})
 
 
@@ -242,10 +245,11 @@ def login() -> str:
     """
     Login method
     """
-    email, password = request.form.get("email"), request.form.get("password")
+    email = request.form.get("email")
+    password = request.form.get("password")
 
     if not AUTH.valid_login(email, password):
-        abort(401)
+        abort(401) # TODO
 
     session_id = AUTH.create_session(email)
     response = jsonify({"email": email, "message": "logged in"})
@@ -327,6 +331,16 @@ def update_password() -> str:
 @app.route('/', methods=["GET"], strict_slashes=False)
 def hello():
     return jsonify({"message": "Hello, this is working"})
+
+
+# Custom Error Handlers
+@app.errorhandler(400)
+def bad_request(error):
+    return jsonify({"Error": str(error.description)}), 400
+
+@app.errorhandler(403)
+def forbidden(error):
+    return jsonify({"Error": str(error.description)}), 403
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080, host="0.0.0.0")
