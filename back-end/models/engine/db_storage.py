@@ -207,11 +207,7 @@ class DBStorage:
             raise NoResultFound
         return user
 
-    def add_user(self,
-                 first_name: str,
-                 last_name: str,
-                 email: str,
-                 password: str) -> User:
+    def add_user(self, first_name: str, last_name: str, email: str, password: str) -> User:
         """
         Create a new user.
 
