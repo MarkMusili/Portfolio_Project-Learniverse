@@ -1,6 +1,9 @@
 #/usr/bin/python3
-"""New storage"""
-import os
+"""
+DBStorage module for handling database interactions
+"""
+
+from os import getenv
 from dotenv import load_dotenv
 from models.basemodel import Base
 from models.reviews import Review
@@ -15,15 +18,17 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
-
+from typing import Dict, Any, Union, List
 
 
 class DBStorage:
-    """Database storage"""
+    """
+    Database storage engine for handling SQLAlchemy interactions
+    """
     __engine = None
     __session = None
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initializes a new DBStorage instance.
         
@@ -31,23 +36,20 @@ class DBStorage:
         Drops existing tables if the environment is set to test.
         """
         load_dotenv()
-        self.__engine = create_engine(
-                                    'mysql+mysqldb://{}:{}@{}:3306/{}'.
-                                    format(
-                                            os.getenv('RDMP_MYSQL_USER'),
-                                            os.getenv('RDMP_MYSQL_PWD'),
-                                            os.getenv('RDMP_MYSQL_HOST'),
-                                            os.getenv('RDMP_MYSQL_DB'),
-                                            # pool_pre_ping=True
-                                            )
-                                    )
-        if os.getenv('RDMP_ENV') == 'test':
+        RDMP_MYSQL_USER = getenv('RDMP_MYSQL_USER')
+        RDMP_MYSQL_PWD = getenv('RDMP_MYSQL_PWD')
+        RDMP_MYSQL_HOST = getenv('RDMP_MYSQL_HOST')
+        RDMP_MYSQL_DB = getenv('RDMP_MYSQL_DB')
+        RDMP_ENV = getenv('RDMP_ENV')
+
+        self.__engine = create_engine(f'mysql+mysqldb://{RDMP_MYSQL_USER}:{RDMP_MYSQL_PWD}@{RDMP_MYSQL_HOST}:3306/{RDMP_MYSQL_DB}')
+        if RDMP_ENV == 'test':
             Base.metadata.drop_all(self.__engine)
 
-            self.__session = scoped_session(sessionmaker(bind=self.__engine,
-                                            expire_on_commit=False))
+        # Confirm this line
+        self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
 
-    def all(self, cls=None):
+    def all(self, cls: str = None) -> Dict[str, Union[Review, User, Dashboard, Roadmap, Topic, Resources, Objectives]]:
         """
         Retrieves all objects from the database session.
 
@@ -77,7 +79,7 @@ class DBStorage:
 
         return objects
     
-    def show(self, cls, id):
+    def show(self, cls: str, id: str) -> Union[Review, User, Dashboard, Roadmap, Topic, Resources, Objectives]:
         """
         Retrieves a specific object from the database.
 
@@ -95,7 +97,7 @@ class DBStorage:
             query = self.__session.query(cls).filter(cls.id == id).first()
             return query
 
-    def fetch(self, cls_name, ref_id):
+    def fetch(self, cls_name: str, ref_id: str) -> Dict[str, Union[Review, User, Dashboard, Roadmap, Topic, Resources, Objectives]]:
         """
         Fetches the children of a specific parent object.
 
@@ -139,7 +141,7 @@ class DBStorage:
 
         return objects
 
-    def count(self, cls):
+    def count(self, cls: str) -> int:
         """
         Counts the number of objects of a certain class in the storage.
 
@@ -160,7 +162,7 @@ class DBStorage:
         return len(objects)
 
 
-    def new(self, obj):
+    def new(self, obj: Union[Review, User, Dashboard, Roadmap, Topic, Resources, Objectives]) -> None:
         """
         Adds a new object to the current database session.
 
@@ -169,13 +171,13 @@ class DBStorage:
         """
         self.__session.add(obj)
 
-    def save(self):
+    def save(self) -> None:
         """
         Commits the current database session, saving any changes made to the objects.
         """
         self.__session.commit()
 
-    def delete(self, obj=None):
+    def delete(self, obj=None) -> None:
         """
         Deletes the specified object from the database session if provided.
 
@@ -185,7 +187,7 @@ class DBStorage:
         if obj is not None:
             self.__session.delete(obj)
 
-    def reload(self):
+    def reload(self) -> None:
         """
         Reloads the database session by recreating the session and metadata based on the engine.
         """
@@ -245,7 +247,7 @@ class DBStorage:
         self.save()
 
 
-    def close(self):
+    def close(self) -> None:
         """
         Close working SQLAlchemy session
         """

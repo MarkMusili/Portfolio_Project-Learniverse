@@ -45,7 +45,7 @@ class BaseModel():
     created_at: datetime = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at: datetime = Column(DateTime, nullable=False, default=datetime.utcnow())
 
-    def __init__(self, *args: Any, **kwargs: Dict[str, Any]) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initializes a new instance of the model with provided keyword arguments.
 
