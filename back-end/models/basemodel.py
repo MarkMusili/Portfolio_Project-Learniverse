@@ -41,9 +41,9 @@ class BaseModel():
         created_at (datetime): The date and time when the instance was created.
         updated_at (datetime): The date and time when the instance was last updated.
     """
-    id: str = Column(String(60), nullable=False, primary_key=True)
-    created_at: datetime = Column(DateTime, nullable=False, default=datetime.utcnow())
-    updated_at: datetime = Column(DateTime, nullable=False, default=datetime.utcnow())
+    id = Column(String(60), nullable=False, primary_key=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
     def __init__(self, *args, **kwargs) -> None:
         """
@@ -57,7 +57,7 @@ class BaseModel():
             The created_at and updated_at attributes are automatically set to the current date and time
             if not provided in the keyword arguments. The id attribute is automatically generated if not provided.
         """
-        format: str = '%Y-%m-%dT%H:%M:%S.%f'
+        format = '%Y-%m-%dT%H:%M:%S.%f'
         if kwargs:
             for key, value in kwargs.items():
                 if key != '__class__':
@@ -82,7 +82,7 @@ class BaseModel():
         Returns:
             str: A string containing the class name, instance ID, and instance attributes.
         """
-        cls: str = (str(type(self)).split('.')[-1]).split('\'')[0]
+        cls = (str(type(self)).split('.')[-1]).split('\'')[0]
         return f'[{cls}] ({self.id}) {self.__dict__}'
 
     def save(self) -> None:
@@ -105,7 +105,7 @@ class BaseModel():
         Returns:
             dDict[str, Any]: A dictionary representation of the instance, including its attributes.
         """
-        dictionary: Dict[str, Any] = {}
+        dictionary = {}
         dictionary.update(self.__dict__)
         dictionary.update({'__class__': (str(type(self)).split('.')[-1]).split('\'')[0]})
 
