@@ -46,7 +46,7 @@ class Roadmap(BaseModel, Base):
         dashboard (List[Dashboard]): Relationship to the Dashboard model
     """
     __tablename__ = "roadmap"
-    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
+    user_id = Column(String(60), ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
     title = Column(String(1024), nullable=False)
     introduction = Column(Text, nullable=False)
     AdditionalInfo = Column(JSON, nullable=True)

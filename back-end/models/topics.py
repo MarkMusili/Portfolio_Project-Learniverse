@@ -38,7 +38,7 @@ class Topic(BaseModel, Base):
         objectives (List[Objectives]): Relationship to the Objectives model
     """
     __tablename__ = "topics"
-    roadmap_id = Column(String(60), ForeignKey('roadmap.id'), nullable=False)
+    roadmap_id = Column(String(60), ForeignKey('roadmap.id', ondelete='CASCADE'), nullable=False)
     name = Column(String(1024), nullable=False)
     description = Column(Text, nullable=False)
     milestones = Column(Text, nullable=False)

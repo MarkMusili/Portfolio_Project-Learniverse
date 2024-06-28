@@ -32,7 +32,7 @@ class Dashboard(BaseModel, Base):
         completed (int): Number of completed roadmaps
     """
     __tablename__ = "dashboard"
-    roadmap_id = Column(String(60), ForeignKey('roadmap.id'), nullable=False)
+    roadmap_id = Column(String(60), ForeignKey('roadmap.id', ondelete='CASCADE'), nullable=False)
     planning = Column(Integer, nullable=False, default=0)
     in_progress = Column(Integer, nullable=False, default=0)
     completed = Column(Integer, nullable=False, default=0)

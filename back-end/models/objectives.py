@@ -27,5 +27,5 @@ class Objectives(BaseModel, Base):
     """
     __tablename__ = "objectives"
     name = Column(String(1024), nullable=False)
-    topic_id = Column(String(60), ForeignKey('topics.id'), nullable=False)
+    topic_id = Column(String(60), ForeignKey('topics.id', ondelete='CASCADE'), nullable=False)
 

@@ -29,5 +29,5 @@ class Review(BaseModel, Base):
         text (str): The text content of the review
     """
     __tablename__ = "reviews"
-    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
+    user_id = Column(String(60), ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
     text = Column(String(1024), nullable=False)
