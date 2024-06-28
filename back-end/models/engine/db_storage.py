@@ -137,7 +137,7 @@ class DBStorage:
                     key = f"{type(obj).__name__}.{obj.id}"
                     objects[key] = obj
             else:
-                return {f"** Class {cls_name} has no parent **"}
+                raise NoResultFound(f"class {cls_name} has no parent")
 
         return objects
 
@@ -198,15 +198,25 @@ class DBStorage:
 
     def find_user_by(self, **kwargs) -> User:
         """
-        
+        Finds a user by specified criteria.
+
+        Args:
+            **kwargs: Arbitrary keyword arguments for querying user attributes.
+
+        Returns:
+            User: The user object matching the specified criteria.
+
+        Raises:
+            InvalidRequestError: If any of the criteria keys are invalid.
+            NoResultFound: If no user matches the specified criteria.
         """
         user_keys = ['id', 'email', 'hashed_password', 'session_id', 'reset_token']
         for key in kwargs.keys():
             if key not in user_keys:
-                raise InvalidRequestError
+                raise InvalidRequestError("Invalid user attribute")
         user = self.__session.query(User).filter_by(**kwargs).first()
         if user is None:
-            raise NoResultFound
+            raise NoResultFound("User not found")
         return user
 
     def add_user(self, first_name: str, last_name: str, email: str, password: str) -> User:
@@ -229,17 +239,24 @@ class DBStorage:
     
     def update_user(self, user_id: int, **kwargs) -> None:
         """
-        Updates a user based on their id
+        Updates a user based on their ID.
+
+        Args:
+            user_id (str): The ID of the user to update.
+            **kwargs: Arbitrary keyword arguments for updating user attributes.
+
+        Raises:
+            ValueError: If any of the criteria keys are invalid.
+            NoResultFound: If no user matches the specified criteria.
         """
-        user_keys = ['id', 'email', 'password',
-                     'session_id', 'reset_token']
+        user_keys = ['id', 'email', 'password', 'session_id', 'reset_token']
         for key in kwargs.keys():
             if key not in user_keys:
-                raise ValueError
+                raise ValueError("Invalid user attribute")
         try:
             user = self.find_user_by(id=user_id)
         except NoResultFound:
-            raise ValueError
+            raise ValueError("User not found")
 
         for key, value in kwargs.items():
             setattr(user, key, value)
