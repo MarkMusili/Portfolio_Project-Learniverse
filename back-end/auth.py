@@ -176,3 +176,26 @@ class Auth:
             )
         except NoResultFound:
             raise ValueError
+        
+    def delete_user(self, email: str, password: str) -> None:
+        """
+        Deletes a user
+
+        Args:
+            email (str): The email of the user
+            password (str): The password of the user
+
+        Raises:
+            NoResultFound: If user does not exist if the database
+            ValueError: If credentials are incorrect
+        """
+        try:
+            user: User = storage.find_user_by(email=email)
+        except NoResultFound:
+            raise NoResultFound
+        
+        if not self.valid_login(email, password):
+            raise ValueError
+        
+        storage.delete(user)
+        storage.save()
