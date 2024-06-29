@@ -151,7 +151,26 @@ def update_password() -> str:
         AUTH.update_password(reset_token, new_password)
         return jsonify({"email": email, "message": "Password updated"}), 200
     except ValueError:
-        abort(403)
+        abort(403, description="Invalid credentials")
+
+@app.route('/users', methods=["DELETE"], strict_slashes=False)
+def delete_user() -> str:
+    """
+    Deletes a user
+    """
+    email = request.form.get("email")
+    if not email:
+        abort(400, description="Missing Email")
+
+    password = request.form.get("password")
+    if not password:
+        abort(400, description="Missing password")
+
+    try:
+        AUTH.delete_user(email, password)
+        return jsonify({"email": email, "message": "User deleted"})
+    except ValueError as e:
+        abort(403, description=e.args[0])
 
 
 # Endpoint for generating chat responses based on prompts
@@ -313,6 +332,19 @@ def update_roadmap_status(roadmap_id):
         return jsonify({'message': f'Roadmap status ({new_status}) updated successfully'}), 200
     except Exception as e:
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
+    
+@app.route('/roadmap/<roadmap_id>', methods=["DELETE"], strict_slashes=False)
+def delete_roadmap(roadmap_id):
+    """
+    Deletes a Roadmap
+    """
+    roadmap = storage.show("Roadmap", roadmap_id)
+    if not roadmap:
+        abort(404, description="Roadmap Not Found")
+
+    storage.delete(roadmap)
+    storage.save()
+    return jsonify({"message": "Roadmap Deleted Successfully"})
     
 
 
