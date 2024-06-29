@@ -86,7 +86,7 @@ def login() -> str:
     password = request.form.get("password")
 
     if not AUTH.valid_login(email, password):
-        abort(401) # TODO
+        abort(403, desciption="Invalid Credentials")
 
     session_id = AUTH.create_session(email)
     response = jsonify({"email": email, "message": "logged in"})
@@ -104,7 +104,7 @@ def logout() -> str:
     user = AUTH.get_user_from_session_id(session_id)
 
     if user is None:
-        abort(403)
+        abort(404, description="User not found")
 
     AUTH.destroy_session(user.id)
 
@@ -119,9 +119,9 @@ def profile() -> str:
     user = AUTH.get_user_from_session_id(request.cookies.get('session_id'))
 
     if user is None:
-        abort(403)
+        abort(404, description="User not found")
 
-    return jsonify({"email": user.email}), 200
+    return jsonify({"email": user.email, "name": f"{user.first_name} {user.last_name}"}), 200
 
 
 @app.route('/reset_password', methods=["POST"], strict_slashes=False)
@@ -135,7 +135,7 @@ def get_reset_password_token() -> str:
         token = AUTH.get_reset_password_token(email)
         return jsonify({"email": email, "reset_token": token})
     except ValueError:
-        abort(403)
+        abort(403, desciption="Invalid Credentials")
 
 
 @app.route('/reset_password', methods=["PUT"], strict_slashes=False)
@@ -197,15 +197,15 @@ def create_roadmap():
 
     user_id = request.json.get("user_id")
     if not user_id:
-        abort(403, descrption="Missing User Id")
+        abort(400, description="Missing User Id")
 
     roadmap_response = request.json.get("Roadmap")
     if not roadmap_response:
-        abort(403, description="Missing Roadmap")
+        abort(400, description="Missing Roadmap")
     
     user = storage.show("User", user_id)
     if not user:
-        abort(400, description=f"User id: {user_id} Not Found")
+        abort(404, description=f"User id: {user_id} Not Found")
     
     # for data in roadmap_response:
     roadmap_data = {
@@ -278,7 +278,7 @@ def view_roadmap(roadmap_id):
         'objectives': [obj.to_dict() for obj in objectives],
         'topics': [topic.to_dict() for topic in sorted(topics.values(), key=lambda t: t.position)],
         'resources': [res.to_dict() for res in resources]
-    })
+    }), 200
 
 
 # Endpoint for updating the status of a roadmap
@@ -340,6 +340,10 @@ def bad_request(error):
 @app.errorhandler(403)
 def forbidden(error):
     return jsonify({"Error": str(error.description)}), 403
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({"Error": str(error.description)}), 404
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080, host="0.0.0.0")
