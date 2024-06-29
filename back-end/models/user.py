@@ -25,7 +25,7 @@ Attributes:
 - roadmaps: Many-to-many relationship with the Roadmap model
 """
 from models.basemodel import BaseModel, Base
-from sqlalchemy import Column, String, Table, ForeignKey
+from sqlalchemy import Column, String, Table, ForeignKey, LargeBinary
 from sqlalchemy.orm import relationship
 
 user_roadmap = Table('user_roadmap', Base.metadata,
@@ -50,8 +50,8 @@ class User(BaseModel, Base):
         roadmaps (List[Roadmap]): Many-to-many relationship with the Roadmap model
     """   
     __tablename__ = "users"
-    email = Column(String(128), nullable=False)
-    password = Column(String(250), nullable=False)
+    email = Column(String(128), nullable=False, unique=True)
+    password = Column(LargeBinary, nullable=False)
     first_name = Column(String(128), nullable=False)
     last_name = Column(String(128), nullable=False)
     session_id = Column(String(250), nullable=True)

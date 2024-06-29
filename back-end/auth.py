@@ -76,7 +76,7 @@ class Auth:
         except NoResultFound:
             return False
 
-        if bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+        if bcrypt.checkpw(password.encode('utf-8'), user.password):
             return True
         return False
 
@@ -192,10 +192,10 @@ class Auth:
         try:
             user: User = storage.find_user_by(email=email)
         except NoResultFound:
-            raise NoResultFound
+            raise ValueError("User not found")
         
         if not self.valid_login(email, password):
-            raise ValueError
+            raise ValueError("Invalid credentials")
         
         storage.delete(user)
         storage.save()
