@@ -14,6 +14,8 @@ Models:
 - The application relies on models defined in the 'models' package for database interactions.
 
 Endpoints:
+- '/users' [POST]: Creates a new user
+- '/sessions' [POST]: 
 - '/chat': For generating chat responses based on user prompts using OpenAI's chat model.
 - '/dashboard': Renders the dashboard page displaying available roadmaps.
 - '/roadmap/<roadmap_id>': Renders the page for viewing a specific roadmap.
