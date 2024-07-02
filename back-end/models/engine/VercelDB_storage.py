@@ -39,11 +39,12 @@ class VercelDBStorage:
         self.__engine = create_engine(POSTGRES_URL)
         self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
 
-    def all(self, cls: str = None) -> Dict[str, Union[Review, User, Dashboard, Roadmap, Topic, Resources, Objectives]]:
+    def all(self, cls: str = None, user_id: str = None) -> Dict[str, Union[Review, User, Dashboard, Roadmap, Topic, Resources, Objectives]]:
         """
         Retrieves all objects from the database session.
 
         If a class name is specified, filters objects by that class.
+        If a user id is specified, filters the object(Roadmap) with respect to that user id
         
         Args:
             cls (str, optional): The class name for filtering objects.
@@ -55,7 +56,11 @@ class VercelDBStorage:
         if cls:
             if isinstance(cls, str):
                 cls = eval(cls)
-            query = self.__session.query(cls)
+            
+            if cls == "Roadmap" and user_id:
+                query = self.__session.query(cls).filter(cls.user_id == user_id)
+            else:
+                query = self.__session.query(cls)
             for obj in query:
                 key = f"{type(obj).__name__}.{obj.id}"
                 objects[key] = obj
