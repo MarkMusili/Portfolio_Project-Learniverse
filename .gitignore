@@ -1,6 +1,5 @@
 ai/
 **/__pycache__/
 **/text.json
-*.txt
 **/test.py
 **/text.json
