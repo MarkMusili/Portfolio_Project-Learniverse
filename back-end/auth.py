@@ -8,6 +8,8 @@ from models.user import User
 from sqlalchemy.orm.exc import NoResultFound
 from uuid import uuid4
 from typing import Union
+from functools import wraps
+from flask import request, jsonify, abort, g
 
 
 def _hash_password(password: str) -> bytes:
@@ -30,6 +32,25 @@ def _generate_uuid() -> str:
         str: The generated UUID.
     """
     return str(uuid4())
+
+def login_required(f):
+    """
+    Decorator that checks if the user is logged in by verifying the session ID in the cookies
+    """
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        session_id = request.cookies.get('session_id')
+        if not session_id:
+            abort(401, description="Unauthorized")
+
+        try:
+            user = storage.find_user_by(session_id=session_id)
+            g.user = user # Attach the user object to flask.g
+        except NoResultFound:
+            abort(401, description="Unauthorized: User not logged in")
+        
+        return f(*args, **kwargs)
+    return decorated_function
 
 class Auth:
     """
