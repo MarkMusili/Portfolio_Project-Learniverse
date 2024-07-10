@@ -34,9 +34,12 @@ class VercelDBStorage:
         Connects to the PostgreSQL database using environment variables.
         """
         load_dotenv()
-        POSTGRES_URL = getenv('POSTGRES_URL')
+        POSTGRES_HOST = getenv('POSTGRES_HOST')
+        POSTGRES_USER = getenv('POSTGRES_USER')
+        POSTGRES_DATABASE = getenv('POSTGRES_DATABASE')
+        POSTGRES_PWD = getenv('POSTGRES_PASSWORD')
 
-        self.__engine = create_engine(POSTGRES_URL)
+        self.__engine = create_engine(f"postgresql://{POSTGRES_USER}:{POSTGRES_PWD}@{POSTGRES_HOST}:5432/{POSTGRES_DATABASE}?sslmode=require")
         self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
 
     def all(self, cls: str = None, user_id: str = None) -> Dict[str, Union[Review, User, Dashboard, Roadmap, Topic, Resources, Objectives]]:
