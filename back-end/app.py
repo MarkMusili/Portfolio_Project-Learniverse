@@ -58,7 +58,7 @@ def db_close(exception):
 # Test endpoint
 @app.route('/', methods=["GET"], strict_slashes=False)
 def hello():
-    return jsonify({"message": "Hello, this is working"})
+    return jsonify({"message": "Welcome to Learniverse"})
 
 # Custom Error Handlers
 @app.errorhandler(400)
