@@ -109,7 +109,7 @@ def view_roadmap(roadmap_id):
         'resources': [res.to_dict() for res in resources]
     }), 200
 
-@roadmap_bp.route('/update_roadmap_status/<roadmap_id>', methods=['PUT'])
+@roadmap_bp.route('/roadmap/<roadmap_id>', methods=['PUT'])
 @login_required
 def update_roadmap_status(roadmap_id):
     """
