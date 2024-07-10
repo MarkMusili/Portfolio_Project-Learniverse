@@ -1,4 +1,5 @@
 ai/
 **/__pycache__/
+**/test.py
 **/text.json
-.env
+
