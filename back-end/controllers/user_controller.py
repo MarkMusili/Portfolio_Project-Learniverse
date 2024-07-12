@@ -77,7 +77,7 @@ def logout() -> str:
 
     AUTH.destroy_session(user.id)
 
-    return jsonify({"message": "logged out"})
+    return jsonify({"email": user.email, "message": "logged out"}), 200
 
 @user_bp.route('/profile', methods=['GET'], strict_slashes=False)
 @login_required
