@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 import openai
 from os import getenv
-from auth import login_required
+from auth.decorators import login_required
 
 chat_bp = Blueprint('chat_bp', __name__)
 

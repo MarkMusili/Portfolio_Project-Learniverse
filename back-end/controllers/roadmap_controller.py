@@ -4,7 +4,7 @@ from models.roadmap import Roadmap
 from models.topics import Topic
 from models.resources import Resources
 from models.objectives import Objectives
-from auth import login_required
+from auth.decorators import login_required
 
 roadmap_bp = Blueprint('roadmap_bp', __name__)
 

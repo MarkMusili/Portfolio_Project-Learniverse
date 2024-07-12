@@ -2,13 +2,15 @@
 """
 
 """
-from flask import request, Blueprint, jsonify, abort, redirect, g
-from auth import Auth, login_required
+from flask import request, Blueprint, jsonify, abort, g
+from auth.auth import Auth
+from auth.decorators import login_required, logout_required
 
 user_bp = Blueprint('user_bp', __name__)
 AUTH = Auth()
 
 @user_bp.route('/users', methods=['POST'], strict_slashes=False)
+@logout_required
 def register_user() -> str:
     """
     Register user
@@ -37,6 +39,7 @@ def register_user() -> str:
 
 
 @user_bp.route('/sessions', methods=["POST"], strict_slashes=False)
+@logout_required
 def login() -> str:
     """
     Login method
@@ -50,7 +53,7 @@ def login() -> str:
         abort(403, description="Missing password")
 
     if not AUTH.valid_login(email, password):
-        abort(403, desciption="Invalid Credentials")
+        abort(403, description="Invalid Credentials")
 
     session_id = AUTH.create_session(email)
     response = jsonify({"email": email, "message": "logged in"})
@@ -74,7 +77,7 @@ def logout() -> str:
 
     AUTH.destroy_session(user.id)
 
-    return redirect('/')
+    return jsonify({"message": "logged out"})
 
 @user_bp.route('/profile', methods=['GET'], strict_slashes=False)
 @login_required
@@ -146,6 +149,6 @@ def delete_user() -> str:
 
     try:
         AUTH.delete_user(email, password)
-        return jsonify({"email": email, "message": "User deleted"})
+        return jsonify({"email": email, "message": "User deleted"}), 200
     except ValueError as e:
         abort(403, description=e.args[0])
