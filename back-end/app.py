@@ -31,9 +31,9 @@ Environment Variables:
 from flask import Flask, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
-from controllers.chat_controller import chat_bp
-from controllers.roadmap_controller import roadmap_bp
-from controllers.user_controller import user_bp
+from blueprints.chat_controller import chat_bp
+from blueprints.roadmap_controller import roadmap_bp
+from blueprints.user_controller import user_bp
 from models import storage
 from os import getenv
 import openai
