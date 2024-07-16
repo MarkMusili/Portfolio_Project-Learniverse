@@ -1,0 +1,30 @@
+.
+├── app.py
+├── auth
+│   ├── auth.py
+│   └── decorators.py
+├── blueprints
+│   ├── __init__.py
+│   ├── chat_controller.py
+│   ├── roadmap_controller.py
+│   └── user_controller.py
+├── models
+│   ├── __init__.py
+│   ├── basemodel.py
+│   ├── dashboard.py
+│   ├── engine
+│   │   ├── VercelDB_storage.py
+│   │   └── __init__.py
+│   ├── objectives.py
+│   ├── resources.py
+│   ├── reviews.py
+│   ├── roadmap.py
+│   ├── topics.py
+│   └── user.py
+├── requirements.txt
+├── structure.txt
+├── utils
+│   └── request_utils.py
+└── vercel.json
+
+5 directories, 22 files
