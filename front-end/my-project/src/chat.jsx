@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faPaperPlane, faLightbulb, faRocket, faCogs } from '@fortawesome/free-solid-svg-icons';
 
 const ChatComponent = () => {
   const [prompt, setPrompt] = useState('');
@@ -13,11 +13,7 @@ const ChatComponent = () => {
       return;
     }
 
-    // Clear the input field
     setPrompt('');
-
-    // Show loading animation or response div
-    // (You can handle this part as needed)
 
     try {
       const response = await fetch("http://52.59.213.161:8080/chat", {
@@ -27,7 +23,7 @@ const ChatComponent = () => {
           "Content-Type": "application/json",
         },
       });
-      
+
       const data = await response.json();
       console.log(data);
 
@@ -38,7 +34,7 @@ const ChatComponent = () => {
           "Content-Type": "application/json",
         },
       });
-      
+
       console.log(createRoadmapResponse.status);
       console.log(await createRoadmapResponse.json());
     } catch (error) {
@@ -47,33 +43,34 @@ const ChatComponent = () => {
   };
 
   return (
-    <div className="max-w-12xl mx-auto p-4 mt-8"> {/* Added mt-8 to increase margin from the top */}
-      <div className="container mx-auto p-4">
-        <div className="Header mb-20">
-          <p className="text-3xl text-center text-gray-800 bg-white py-4 px-8 shadow-lg rounded-xl max-w-2xl">Build your own personalized Roadmap</p>
-        </div>
-        <div className="info-section max-w-2xl flex justify-center,grid grid-cols-20 sm:grid-cols-1 lg:grid-cols-3 gap-4">
-          {[1, 2, 3].map((_, index) => (
-            <div key={index} className="info" >
-              <p className= "  bg-white shadow-lg rounded-lg p-13">Hi, I am your personal assistant. I can help you to build your own personalized roadmap. What would you like to learn?</p>
-            </div>
-          ))}
-        </div>
-        <form onSubmit={handleSubmit} className="user_input mt-8 flex items-center">
-          <input
-            type="text"
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            placeholder="What would you like to learn?..."
-            className="input border rounded-full px-4  py-8 mr-2 focus:outline-none max-w-6xl"
-          />
-          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none">
-            <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
-          </button>
-        </form>
+    <div className="min-h-screen max-w-6xl mx-auto p-6 mt-12 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-xl shadow-lg">
+      <div className="text-center mb-12">
+        <h1 className="text-5xl font-extrabold text-white">Build Your Personalized Roadmap</h1>
+        <p className="text-2xl text-gray-100 mt-4">Hi, I'm your personal assistant. Let's create a customized learning path for you.</p>
+      </div>
+      <form onSubmit={handleSubmit} className="flex items-center justify-center mb-12">
+        <input
+          type="text"
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          placeholder="What would you like to learn?..."
+          className="border border-gray-300 rounded-full px-6 py-3 w-2/3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300 ease-in-out"
+        />
+        <button type="submit" className="ml-4 bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 px-6 rounded-full focus:outline-none transition duration-300 ease-in-out transform hover:scale-105">
+          <FontAwesomeIcon icon={faPaperPlane} className="mr-2" /> Send
+        </button>
+      </form>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {[{icon: faLightbulb, text: 'Discover new ideas'}, {icon: faRocket, text: 'Accelerate your learning'}, {icon: faCogs, text: 'Tailor your roadmap'}].map((item, index) => (
+          <div key={index} className="bg-white shadow-lg rounded-lg p-8 text-center transform transition duration-500 hover:scale-105">
+            <FontAwesomeIcon icon={item.icon} className="text-4xl text-blue-500 mb-4" />
+            <p className="text-gray-700 text-lg">{item.text}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
 
 export default ChatComponent;
+

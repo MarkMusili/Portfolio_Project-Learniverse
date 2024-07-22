@@ -62,21 +62,21 @@ const LandingPage = () => {
               <p className="text-lg md:text-xl text-gray-700 mt-4">Our modern courses across a range of in-demand skills will give you the knowledge you need to live the life you want.</p>
             </div>
             <Link to="/signup">
-            <button className="bg-gradient-to-r from-orange to-pink text-white py-3 px-8 rounded-full text-lg font-semibold bg-pink-600 transition duration-300 ease-in-out">Get Started</button>
+            <button className="bg-gradient-to-r from-orange to-pink text-white py-3 px-8 rounded-full text-lg font-semibold bg-blue-600 transition duration-300 ease-in-out">Get Started</button>
             </Link>
           </div>
         </section>
         {/* Course Cards */}
         <div className="container mx-auto mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
-            <div className="bg-gradient-to-r from-blue-600 to-pink-400 rounded-lg shadow-lg p-6">
-              <div className="bg-gradient-to-r from-blue-600 to-pink-400 text-white rounded-lg font-semibold text-lg py-8 px-6">
+            <div className="bg-gradient-to-r from-blue-600 to-blue-400 rounded-lg shadow-lg p-6">
+              <div className="bg-gradient-to-r from-blue-600 to-blue-400 text-white rounded-lg font-semibold text-lg py-8 px-6">
                 Check out our most popular courses!
               </div>
             </div>
           {/* Course Cards */}
           {courses.map((course, index) => (
             <div key={index} className="bg-white rounded-lg shadow-lg p-6">
-              <img className="w-12 mb-4 mx-auto" src={course.icon} alt={course.title} />
+              <img className="w-12 mb-4 mx-auto " src={course.icon} alt={course.title} />
               <h2 className="text-xl font-bold text-blue text-center">{course.title}</h2>
               <p className="text-gray-700 mt-2">{course.description}</p>
               <button href="#" className="text-orange font-semibold mt-4 block text-center">Get Started</button>
@@ -88,7 +88,7 @@ const LandingPage = () => {
       <footer className="absolute bottom-0 left-0 w-full bg-blue text-white py-6">
         <div className="container mx-auto flex justify-between items-center px-6">
           <img className="h-8" src={logoLight} alt="logo" />
-          <button href="#" className="bg-gradient-to-r from-orange to-pink text-white py-3 px-8 rounded-full text-lg font-semibold hover:bg-pink-600 transition duration-300 ease-in-out">Get Started</button>
+          <button href="#" className="bg-gradient-to-r from-orange to-pink text-white py-3 px-8 rounded-full text-lg font-semibold hover:bg-blue-600 transition duration-300 ease-in-out">Get Started</button>
         </div>
       </footer>
     </div>
