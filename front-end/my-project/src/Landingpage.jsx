@@ -9,6 +9,7 @@ import iconDesign from './assets/icon-design.svg';
 import iconPhotography from './assets/icon-photography.svg';
 import iconCrypto from './assets/icon-crypto.svg';
 import iconBusiness from './assets/icon-business.svg';
+import { Link } from 'react-router-dom';
 
 // Define the courses array
 const courses = [
@@ -47,7 +48,9 @@ const LandingPage = () => {
       {/* Header */}
       <header className="flex justify-between items-center px-6 py-4 bg-white shadow-md">
         <img className="h-8" src={logoDark} alt="logo" />
-        <button href="#" className="bg-blue text-white py-2 px-6 rounded-full text-sm font-semibold hover:bg-blue-700">Get Started</button>
+        <Link to="/signup">
+        <button  className="bg-blue text-white py-2 px-6 rounded-full text-sm font-semibold bg-blue-700">Get Started</button>
+        </Link>
       </header>
       {/* Main Content */}
       <main className="py-20">
@@ -58,7 +61,9 @@ const LandingPage = () => {
               <h1 className="text-4xl md:text-6xl font-bold text-blue leading-tight">Maximize skill, minimize budget</h1>
               <p className="text-lg md:text-xl text-gray-700 mt-4">Our modern courses across a range of in-demand skills will give you the knowledge you need to live the life you want.</p>
             </div>
-            <button href="#" className="bg-gradient-to-r from-orange to-pink text-white py-3 px-8 rounded-full text-lg font-semibold hover:bg-pink-600 transition duration-300 ease-in-out">Get Started</button>
+            <Link to="/signup">
+            <button className="bg-gradient-to-r from-orange to-pink text-white py-3 px-8 rounded-full text-lg font-semibold bg-pink-600 transition duration-300 ease-in-out">Get Started</button>
+            </Link>
           </div>
         </section>
         {/* Course Cards */}
