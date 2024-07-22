@@ -1,5 +1,7 @@
+// Login.js
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useAuth } from './AuthContext'; // Ensure correct path
 import { GoogleLogin } from 'react-oauth-google';
 
 const Login = () => {
@@ -7,21 +9,19 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const history = useHistory();
+  const { login } = useAuth();
 
-  // Function to handle login success
+
   const handleLoginSuccess = (response) => {
     console.log('Login Successful:', response);
-    // Implement your login logic here
-    // For example, set the user data in state or localStorage
+    login(response.tokenId);
+    history.push('/dashboard');
   };
 
-  // Function to handle login failure
   const handleLoginFailure = (response) => {
     console.error('Login Failed:', response);
-    // Handle login failure (show error message, etc.)
   };
 
-  // Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -30,23 +30,17 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
         console.log('Login Successful:', data);
-        // Redirect to the dashboard
+        login(data.token); // Assume your API returns a token upon successful login
         history.push('/dashboard');
-        // Implement your login logic here
-        // For example, set user data in state/localStorage
       } else {
         console.error('Login Failed:', data);
-        // Handle login failure (show error message, etc.)
         setErrorMessage(data.message || 'Login failed. Please try again.');
       }
     } catch (error) {
@@ -54,6 +48,9 @@ const Login = () => {
       setErrorMessage('An error occurred. Please try again.');
     }
   };
+
+ 
+
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
@@ -137,4 +134,6 @@ const Login = () => {
 };
 
 export default Login;
+
+
 

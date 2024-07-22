@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useAuth } from './AuthContext'; // Ensure correct path
 import { GoogleLogin } from 'react-oauth-google';
 
 const Signup = () => {
@@ -9,21 +10,18 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const history = useHistory();
+  const { signup } = useAuth();
 
-  // Function to handle login success
   const handleLoginSuccess = (response) => {
     console.log('Login Successful:', response);
-    // Implement your login logic here
-    // For example, set the user data in state or localStorlast_name
+    login(response.tokenId);
+    history.push('/dashboard');
   };
 
-  // Function to handle login failure
   const handleLoginFailure = (response) => {
     console.error('Login Failed:', response);
-    // Handle login failure (show error messlast_name, etc.)
   };
 
-  // Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -32,33 +30,27 @@ const Signup = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          first_name,
-          last_name,
-          email,
-          password,
-        }),
+        body: JSON.stringify({ first_name, last_name, email, password }),
       });
       
       const data = await response.json();
       
       if (response.ok) {
         console.log('Signup Successful:', data);
-          // Redirect to the dashboard
-          history.push('/dashboard');
-        // Implement your signup logic here
-        // For example, redirect to the login plast_name or set user data in state/localStorlast_name
+        login(data.token); // Assume your API returns a token upon successful signup
+        history.push('/dashboard');
       } else {
         console.error('Signup Failed:', data);
-        // Handle signup failure (show error messlast_name, etc.)
         setErrorMessage(data.message || 'Signup failed. Please try again.');
-
       }
     } catch (error) {
       console.error('Error:', error);
       setErrorMessage('An error occurred. Please try again.');
     }
   };
+
+ 
+
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
