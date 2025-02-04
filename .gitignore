@@ -3,3 +3,6 @@ ai/
 **/test.py
 **/text.json
 db_storage.py
+
+**/package-lock.json
+**/node_modules/
