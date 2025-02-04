@@ -1,31 +1,56 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useAuth } from './AuthContext'; // Ensure correct path
 import { GoogleLogin } from 'react-oauth-google';
 
 const Signup = () => {
-  const [fullName, setFullName] = useState('');
-  const [age, setAge] = useState('');
+  const [first_name, setfirst_name] = useState('');
+  const [last_name, setlast_name] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const history = useHistory();
+  const { signup ,login} = useAuth();
 
-  // Function to handle login success
   const handleLoginSuccess = (response) => {
     console.log('Login Successful:', response);
-    // Implement your login logic here
-    // For example, set the user data in state or localStorage
+    login(response.tokenId);
+    history.push('/dashboard');
   };
 
-  // Function to handle login failure
   const handleLoginFailure = (response) => {
     console.error('Login Failed:', response);
-    // Handle login failure (show error message, etc.)
   };
 
-  // Function to handle form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Implement form submission logic
+    try {
+      const response = await fetch('https://learniverse-omega.vercel.app/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ first_name, last_name, email, password }),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        console.log('Signup Successful:', data);
+        login(data.token); // Assume your API returns a token upon successful signup
+        history.push('/dashboard');
+      } else {
+        console.error('Signup Failed:', data);
+        setErrorMessage(data.message || 'Signup failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setErrorMessage('An error occurred. Please try again.');
+    }
   };
+
+ 
+
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
@@ -40,7 +65,11 @@ const Signup = () => {
         <div className="relative z-10 w-1/2 p-8">
           <h2 className="text-2xl font-semibold text-center text-gray-700">Sign Up</h2>
           <p className="text-xl text-center text-gray-600">Create a new account</p>
-
+          {errorMessage && (
+            <div className="mt-4 text-red-600 bg-red-100 border border-red-400 p-2 rounded">
+              {errorMessage}
+            </div>
+          )}
           {/* Google Sign-In Button */}
           <GoogleLogin
             clientId="YOUR_GOOGLE_CLIENT_ID"
@@ -59,26 +88,26 @@ const Signup = () => {
 
           <form onSubmit={handleSubmit} className="mt-4">
             <div className="mt-4">
-              <label htmlFor="fullName" className="block mb-2 text-sm font-medium text-gray-600">Full Name</label>
+              <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-600">Full Name</label>
               <input
-                id="fullName"
+                id="first_name"
                 type="text"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
+                value={first_name}
+                onChange={(e) => setfirst_name(e.target.value)}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Enter full name"
               />
             </div>
 
             <div className="mt-4">
-              <label htmlFor="age" className="block mb-2 text-sm font-medium text-gray-600">Age</label>
+              <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-600">last_name</label>
               <input
-                id="age"
-                type="number"
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
+                id="last_name"
+                type="text"
+                value={last_name}
+                onChange={(e) => setlast_name(e.target.value)}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:ring-blue-500 focus:outline-none focus:ring focus:ring-opacity-40"
-                placeholder="Enter age"
+                placeholder="Enter last_name"
               />
             </div>
 
@@ -115,7 +144,7 @@ const Signup = () => {
 
           <div className="flex items-center justify-between mt-4">
             <span className="w-1/5 border-b lg:w-1/4"></span>
-            <Link to="/login" className="text-xs text-blue-500 uppercase hover:underline">or sign up</Link>
+            <Link to="/login" className="text-xs text-blue-500 uppercase hover:underline">already have an account? LOGIN</Link>
             <span className="w-1/5 border-b lg:w-1/4"></span>
           </div>
         </div>
@@ -125,3 +154,4 @@ const Signup = () => {
 };
 
 export default Signup;
+
