@@ -44,37 +44,31 @@ const Layout = ({ children }) => (
   </div>
 );
 
-const AppRoutes = () => (
-  <Switch>
-    {/* Public routes */}
-    <Route exact path="/" component={LandingPage} />
-    <Route path="/signup" component={Signup} />
-    <Route path="/login" component={Login} />
-
-    {/* Protected routes */}
-    <ProtectedRoute path="/profile" component={Profile} />
-    <ProtectedRoute path="/dashboard" component={Dashboard} />
-    <ProtectedRoute path="/chats" component={ChatComponent} />
-    <ProtectedRoute path="/roadmap" component={Roadmap} />
-    <ProtectedRoute path="/calendar" component={Calendar2024} />
-
-    {/* Catch-all route */}
-    <Redirect to="/" />
-  </Switch>
-);
-
 const App = () => (
   <div className='bg-blue-50'>
     <Router>
       <AuthProvider>
         <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
           <Switch>
-            <Route path="/" exact>
-              <LandingPage />
-            </Route>
+            {/* Public routes */}
+            <Route exact path="/" component={LandingPage} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/login" component={Login} />
+
+
             <Route>
               <Layout>
-                <AppRoutes />
+                <Switch>
+                  {/* Protected Routes */}
+                  <ProtectedRoute path="/profile" component={Profile} />
+                  <ProtectedRoute path="/dashboard" component={Dashboard} />
+                  <ProtectedRoute path="/chats" component={ChatComponent} />
+                  <ProtectedRoute path="/roadmap" component={Roadmap} />
+                  <ProtectedRoute path="/calendar" component={Calendar2024} />
+
+                  {/* Catch-all route */}
+                  <Redirect to="/" />
+                </Switch>
               </Layout>
             </Route>
           </Switch>
