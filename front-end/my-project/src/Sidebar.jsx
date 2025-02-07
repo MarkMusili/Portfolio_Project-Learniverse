@@ -11,7 +11,7 @@ const Sidebar = () => {
         {/* Logo */}
         <div className="flex items-center px-4 py-2 text-white mb-8">
           <img src={logo} alt="Learniverse Logo" className="h-12 mr-8" />
-          <span className="text-lg">Learniverse</span>
+          <span className="text-lg">StudyTarget</span>
         </div>
         {/* Sidebar links */}
         <h2 className=' text-white text-lg'>Menu</h2>
@@ -33,10 +33,7 @@ const Sidebar = () => {
           <span className="ml-4">Profile</span>
         </Link>
         {/* Settings link */}
-        <a href="http://52.59.213.161:8080/settings" className="flex items-center px-4 py-2  hover:bg-blue-900 text-white text-lg">
-          <FontAwesomeIcon icon={faCog} className="h-6 w-6 mr-4" />
-          <span className="ml-4">Settings</span>
-        </a>
+        
       </div>
     </div>
   );
