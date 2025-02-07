@@ -23,10 +23,7 @@ const Sidebar = () => {
           <FontAwesomeIcon icon={faPlus} className="h-6 w-6 mr-4" />
           <span className="ml-4">Chat</span>
         </Link>
-        <Link to="/calendar" className="flex items-center px-4 py-2 hover:bg-blue-900 text-white text-lg">
-          <FontAwesomeIcon icon={faCalendarAlt} className="h-6 w-6 mr-4" />
-          <span className="ml-4">Calendar</span>
-        </Link>
+       
         {/* Profile link */}
         <Link to="/profile" className="flex items-center px-4 py-2 hover:bg-blue-900 text-white text-lg">
           <FontAwesomeIcon icon={faUser} className="h-6 w-6 mr-4" />
