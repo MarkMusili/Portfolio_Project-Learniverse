@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Route,  Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route,  Switch, Redirect, useLocation } from 'react-router-dom';
 import { GoogleOAuthProvider } from 'react-oauth-google';
+import { motion, AnimatePresence } from 'framer-motion';
 import LandingPage from './Landingpage';
 import Dashboard from './Dashboard';
 import Roadmap from './Roadmap';
@@ -12,8 +13,24 @@ import Login from './login';
 import Signup from './signup';
 import Profile from './profile';
 import {AuthProvider, useAuth } from './AuthContext';
+// import { Component } from 'lucide-react';
 
+const pageVariants = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 }
+};
 
+const PublicRoute = ({ component: Component, ...rest }) => (
+  <Route 
+    {...rest}
+    render={(props) => (
+      <motion.div initial="initial" animate="animate" exit="exit" variants={pageVariants} transition={{ duration: 0.5 }}>
+        <Component {...props} />
+      </motion.div>
+    )}
+  />
+)
 
 // ProtectedRoute component to handle redirection
 const ProtectedRoute = ({ component: Component, ...rest }) => {
@@ -24,7 +41,9 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={(props) =>
         isLoggedIn ? (
-          <Component {...props} />
+          <motion.div initial="initial" animate="animate" exit="exit" variants={pageVariants} transition={{ duration: 0.3 }}>
+            <Component {...props} />
+          </motion.div>
         ) : (
           <Redirect to="/login" />
         )
@@ -44,34 +63,43 @@ const Layout = ({ children }) => (
   </div>
 );
 
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode='wait'>
+      <Switch location={location} key={location.pathname}>
+        {/* Public routes */}
+        <PublicRoute exact path="/" component={LandingPage} />
+        <PublicRoute path="/signup" component={Signup} />
+        <PublicRoute path="/login" component={Login} />
+
+        <Route>
+          <Layout>
+            <Switch location={location} key={location.pathname}>
+              {/* Protected Routes */}
+              <ProtectedRoute path="/profile" component={Profile} />
+              <ProtectedRoute path="/dashboard" component={Dashboard} />
+              <ProtectedRoute path="/chats" component={ChatComponent} />
+              <ProtectedRoute path="/roadmap" component={Roadmap} />
+              <ProtectedRoute path="/calendar" component={Calendar2024} />
+
+              {/* Catch-all route */}
+              <Redirect to="/" />
+            </Switch>
+          </Layout>
+        </Route>
+      </Switch>
+    </AnimatePresence>
+  )
+}
+
 const App = () => (
   <div className='bg-blue-50'>
     <Router>
       <AuthProvider>
         <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
-          <Switch>
-            {/* Public routes */}
-            <Route exact path="/" component={LandingPage} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/login" component={Login} />
-
-
-            <Route>
-              <Layout>
-                <Switch>
-                  {/* Protected Routes */}
-                  <ProtectedRoute path="/profile" component={Profile} />
-                  <ProtectedRoute path="/dashboard" component={Dashboard} />
-                  <ProtectedRoute path="/chats" component={ChatComponent} />
-                  <ProtectedRoute path="/roadmap" component={Roadmap} />
-                  <ProtectedRoute path="/calendar" component={Calendar2024} />
-
-                  {/* Catch-all route */}
-                  <Redirect to="/" />
-                </Switch>
-              </Layout>
-            </Route>
-          </Switch>
+          <AnimatedRoutes />
         </GoogleOAuthProvider>
       </AuthProvider>
     </Router>
