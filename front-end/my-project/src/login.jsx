@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from './AuthContext'; // Ensure correct path
 import { GoogleLogin } from 'react-oauth-google';
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -53,6 +53,11 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 py-8">
+      <div className='w-full max-w-md absolute top-4 left-4'>
+        <Link to='/' className='text-gray-600 hover:text-gray-900'>
+          <ArrowLeft size={24} className='hover:scale-110 transition-transform duration-200'/>
+        </Link>
+      </div>
       <div className="w-full max-w-md overflow-hidden bg-white p-8 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold text-center text-gray-700">Log in to your Account</h2>
         <p className="text-l text-center text-gray-600 mt-2">Welcome back!</p>
@@ -112,7 +117,7 @@ const Login = () => {
 
           <div className="mt-8">
             <button type="submit" className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
-              Login
+            <div className='hover:scale-110 transition-transform duration-200'>Login</div> 
             </button>
           </div>
         </form>
