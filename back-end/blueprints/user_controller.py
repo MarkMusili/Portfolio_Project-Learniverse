@@ -37,8 +37,7 @@ def login() -> str:
         abort(403, description="Invalid Credentials")
 
     session_id = AUTH.create_session(data["email"])
-    response = jsonify({"email": data["email"], "message": "logged in"})
-    response.set_cookie("session_id", session_id)
+    response = jsonify({"email": data["email"], "message": "logged in", "session_id": session_id})
 
     return response
 
@@ -50,7 +49,6 @@ def logout() -> str:
     """
     AUTH.destroy_session(g.user.id)
     response = jsonify({"email": g.user.email, "message": "logged out"})
-    response.set_cookie("session_id", "", expires=0)  # Clear the session cookie
 
     return response
 
