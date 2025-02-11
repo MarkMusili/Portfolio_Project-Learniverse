@@ -59,6 +59,9 @@ class VercelDBStorage:
         if cls:
             if isinstance(cls, str):
                 cls = eval(cls)
+
+            print(cls)
+            print(user_id)
             
             if cls == "Roadmap" and user_id:
                 query = self.__session.query(cls).filter(cls.user_id == user_id)

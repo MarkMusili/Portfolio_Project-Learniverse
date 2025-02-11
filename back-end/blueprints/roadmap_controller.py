@@ -18,7 +18,7 @@ def dashboard():
     """
     user = g.user
     print(user.id)
-    roadmaps = storage.all(cls="Roadmap", user_id=user.id).values()
+    roadmaps = storage.all("Roadmap", user.id).values()
     sorted_roadmaps = sorted(roadmaps, key=lambda k: k.created_at, reverse=True)
 
     return jsonify([roadmap.to_dict() for roadmap in sorted_roadmaps])
