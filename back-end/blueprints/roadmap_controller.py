@@ -17,6 +17,8 @@ def dashboard():
     Render the dashboard page with a list of available roadmaps.
     """
     user = g.user
+    print(user)
+    print(user.id)
     roadmaps = storage.all("Roadmap", user.id).values()
     sorted_roadmaps = sorted(roadmaps, key=lambda k: k.created_at, reverse=True)
 
