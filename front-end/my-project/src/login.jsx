@@ -27,7 +27,7 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('https://learniverse-omega.vercel.app/sessions', {
+      const response = await fetch("https://learniverse-omega.vercel.app/sessions", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,18 +35,20 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
-
       if (response.ok) {
-        console.log('Login Successful:', data);
-        login(data.token); // Assume your API returns a token upon successful login
-        history.push('/dashboard');
+        const data = await response.json();
+        const sessionId = data.cookie.split('; ').find(row => row.startsWith('session_id='))?.split('=')[1];
+
+        if (sessionId) {
+          login(sessionId);
+          history.push('/dashboard');
+        } else {
+          setErrorMessage('Session not found. Please try again')
+        }
       } else {
-        console.error('Login Failed:', data);
         setErrorMessage(data.message || 'Login failed. Please try again.');
       }
     } catch (error) {
-      console.error('Error:', error);
       setErrorMessage('An error occurred. Please try again.');
     }
   };
@@ -63,7 +65,7 @@ const Login = () => {
         <p className="text-l text-center text-gray-600 mt-2">Welcome back!</p>
 
         {/* Google Sign-In Button */}
-        <div className='mt-3'>
+        {/* <div className='mt-3'>
           <GoogleLogin
             clientId="YOUR_GOOGLE_CLIENT_ID"
             buttonText="Sign in with Google"
@@ -72,7 +74,7 @@ const Login = () => {
             cookiePolicy={'single_host_origin'}
             className="w-full mt-4 text-gray-600 transition-colors duration-200 transform border rounded-lg hover:bg-gray-50 p-2"
           />
-        </div>
+        </div> */}
 
         <div className="flex items-center justify-between mt-4">
           <span className="w-1/5 border-b lg:w-1/4"></span>
