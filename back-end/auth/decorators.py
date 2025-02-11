@@ -3,7 +3,7 @@
 
 """
 from functools import wraps
-from flask import abort, g
+from flask import request, abort, g
 from models import storage
 from sqlalchemy.orm.exc import NoResultFound
 from utils.request_utils import get_request_data
@@ -34,7 +34,7 @@ def logout_required(f):
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        session_id = get_request_data(["session_id"]).get("session_id")
+        session_id = request.json.get("session_id")
         if session_id:
             try:
                 user = storage.find_user_by(session_id=session_id)
