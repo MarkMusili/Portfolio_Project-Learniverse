@@ -62,10 +62,8 @@ class VercelDBStorage:
 
             if cls_name == "Roadmap" and user_id:
                 query = self.__session.query(cls).filter(cls.user_id == user_id)
-                print("user id used")
             else:
                 query = self.__session.query(cls)
-                print("user id not used")
             for obj in query:
                 key = f"{type(obj).__name__}.{obj.id}"
                 objects[key] = obj
