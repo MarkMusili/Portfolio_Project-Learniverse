@@ -54,14 +54,14 @@ echo 'SELECT * FROM reviews\G' | mysql -urdmp_dev -p rdmp_dev_db
 
 
 ---------------DO NOT TOUCH---
-echo 'DROP TABLE reviews\G' | mysql -urdmp_dev -p rdmp_dev_db
-echo 'DROP TABLE dashboard\G' | mysql -urdmp_dev -p rdmp_dev_db
-echo 'DROP TABLE users\G' | mysql -urdmp_dev -p rdmp_dev_db
 echo 'DROP TABLE resources\G' | mysql -urdmp_dev -p rdmp_dev_db
 echo 'DROP TABLE objectives\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE reviews\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE dashboard\G' | mysql -urdmp_dev -p rdmp_dev_db
 echo 'DROP TABLE topics\G' | mysql -urdmp_dev -p rdmp_dev_db
 echo 'DROP TABLE dashboard\G' | mysql -urdmp_dev -p rdmp_dev_db
 echo 'DROP TABLE roadmap\G' | mysql -urdmp_dev -p rdmp_dev_db
+echo 'DROP TABLE users\G' | mysql -urdmp_dev -p rdmp_dev_db
 
 
 

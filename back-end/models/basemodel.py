@@ -23,7 +23,7 @@ Methods:
 """
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import String, Column, DateTime
-from datetime import datetime
+from datetime import timezone, datetime
 import uuid
 import models
 from typing import Any, Dict
@@ -42,8 +42,8 @@ class BaseModel():
         updated_at (datetime): The date and time when the instance was last updated.
     """
     id = Column(String(60), nullable=False, primary_key=True)
-    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
-    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    created_at = Column(DateTime, nullable=False, default=datetime.now(timezone.utc))
+    updated_at = Column(DateTime, nullable=False, default=datetime.now(timezone.utc))
 
     def __init__(self, *args, **kwargs) -> None:
         """

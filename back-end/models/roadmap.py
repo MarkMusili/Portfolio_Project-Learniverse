@@ -22,7 +22,6 @@ Attributes:
 - completed: Boolean indicating if the roadmap is completed
 
 - topic: Relationship to the Topic model
-- dashboard: Relationship to the Dashboard model
 """
 from models.basemodel import BaseModel, Base
 from sqlalchemy import Column, String, Text, JSON, ForeignKey, Boolean
@@ -43,7 +42,6 @@ class Roadmap(BaseModel, Base):
         completed (bool): Boolean indicating if the roadmap is completed
 
         topic (List[Topic]): Relationship to the Topic model
-        dashboard (List[Dashboard]): Relationship to the Dashboard model
     """
     __tablename__ = "roadmap"
     user_id = Column(String(60), ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
@@ -56,4 +54,3 @@ class Roadmap(BaseModel, Base):
     completed = Column(Boolean, nullable=False, default=False)
 
     topic = relationship('Topic', cascade='all, delete-orphan', backref='roadmap')
-    dashboard = relationship('Dashboard', cascade='all, delete-orphan', backref='roadmap') 

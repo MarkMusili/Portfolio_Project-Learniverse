@@ -6,8 +6,6 @@ DBStorage module for handling database interactions
 from os import getenv
 from dotenv import load_dotenv
 from models.basemodel import Base
-from models.reviews import Review
-from models.dashboard import Dashboard
 from models.user import User
 from models.roadmap import Roadmap
 from models.topics import Topic
@@ -42,7 +40,7 @@ class VercelDBStorage:
         self.__engine = create_engine(f"postgresql://{POSTGRES_USER}:{POSTGRES_PWD}@{POSTGRES_HOST}:5432/{POSTGRES_DATABASE}?sslmode=require")
         self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
 
-    def all(self, cls: str = None, user_id: str = None) -> Dict[str, Union[Review, User, Dashboard, Roadmap, Topic, Resources, Objectives]]:
+    def all(self, cls: str = None, user_id: str = None) -> Dict[str, Union[User, Roadmap, Topic, Resources, Objectives]]:
         """
         Retrieves all objects from the database session.
 
@@ -68,7 +66,7 @@ class VercelDBStorage:
                 key = f"{type(obj).__name__}.{obj.id}"
                 objects[key] = obj
         else:
-            classes = [Review, User, Dashboard, Roadmap, Topic, Resources, Objectives]
+            classes =  [User, Roadmap, Topic, Resources, Objectives]
             for element in classes:
                 query = self.__session.query(element)
                 for obj in query:
@@ -77,7 +75,7 @@ class VercelDBStorage:
 
         return objects
     
-    def show(self, cls: str, id: str) -> Union[Review, User, Dashboard, Roadmap, Topic, Resources, Objectives]:
+    def show(self, cls: str, id: str) -> Union[User, Roadmap, Topic, Resources, Objectives]:
         """
         Retrieves a specific object from the database.
 
@@ -95,7 +93,7 @@ class VercelDBStorage:
             query = self.__session.query(cls).filter(cls.id == id).first()
             return query
 
-    def fetch(self, cls_name: str, ref_id: str) -> Dict[str, Union[Review, User, Dashboard, Roadmap, Topic, Resources, Objectives]]:
+    def fetch(self, cls_name: str, ref_id: str) -> Dict[str, Union[User, Roadmap, Topic, Resources, Objectives]]:
         """
         Fetches the children of a specific parent object.
 
@@ -110,9 +108,7 @@ class VercelDBStorage:
         if cls_name and ref_id:
             class_map = {
                 "Topic": Topic,
-                "Dashboard": Dashboard,
                 "Roadmap": Roadmap,
-                "Review": Review,
                 "Objectives": Objectives,
                 "Resources": Resources
             }
@@ -122,9 +118,9 @@ class VercelDBStorage:
                 return {"error": f"Class {cls_name} not found"}
 
             search = ""
-            if cls_name in ["Topic", "Dashboard"]:
+            if cls_name in ["Topic"]:
                 search = "roadmap_id"
-            elif cls_name in ["Roadmap", "Review"]:
+            elif cls_name in ["Roadmap"]:
                 search = "user_id"
             elif cls_name in ["Objectives", "Resources"]:
                 search = "topic_id"
@@ -160,7 +156,7 @@ class VercelDBStorage:
         return len(objects)
 
 
-    def new(self, obj: Union[Review, User, Dashboard, Roadmap, Topic, Resources, Objectives]) -> None:
+    def new(self, obj: Union[User, Roadmap, Topic, Resources, Objectives]) -> None:
         """
         Adds a new object to the current database session.
 
